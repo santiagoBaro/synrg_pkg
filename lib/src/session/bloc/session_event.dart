@@ -4,6 +4,8 @@ part of 'session_bloc.dart';
 ///
 sealed class SynrSessionEvent {}
 
+class SynrgAuthInit extends SynrSessionEvent {}
+
 ///
 class SynrLogin extends SynrSessionEvent {
   SynrLogin({

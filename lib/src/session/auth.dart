@@ -46,17 +46,15 @@ class SynrgAuth {
   }
 
   /// Get the current user´s profile
-
   Future<SynrgProfile?> profile() async {
-    if (profileIndex == null) {
-      return null;
-    }
+    // if the profile is still fresh return without making a backend request
     if (_profile != null && _profile!.id == user!.uid) {
       final currentTime = DateTime.now();
-      if (currentTime.difference(_lastUpdate).inHours < 1) {
+      if (currentTime.difference(_lastUpdate).inMinutes < 1) {
         return _profile;
       }
     }
+    // otherwise call firestore profile table
     _lastUpdate = DateTime.now();
     return profileIndex!.get(user!.uid);
   }

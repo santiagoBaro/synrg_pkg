@@ -2,25 +2,37 @@ part of 'session_bloc.dart';
 
 ///
 @immutable
-sealed class SynrSessionState extends SynrgState {}
-
-///
-final class SynrSessionInitial extends SynrSessionState {}
-
-///
-final class SynrProfileComplete extends SynrSessionState {
+abstract class SynrSessionState extends SynrgState {
   ///
-  SynrProfileComplete(this.profile);
+  SynrSessionState({super.alert});
+}
+
+/// Initial state is a loader while we check for the session state
+class SynrSessionLoadingState extends SynrSessionState {
+  ///
+  SynrSessionLoadingState({super.alert});
+}
+
+///
+final class SynrNotAuthenticatedState extends SynrSessionState {
+  ///
+  SynrNotAuthenticatedState({super.alert});
+}
+
+///
+final class SynrProfileViewState extends SynrSessionState {
+  ///
+  SynrProfileViewState(this.profile, {super.alert});
 
   ///
   final SynrgProfile profile;
 }
 
 ///
-final class SynrProfileIncomplete extends SynrSessionState {
+final class SynrProfileFormState extends SynrSessionState {
   ///
-  SynrProfileIncomplete(this.profile);
+  SynrProfileFormState(this.profile, {super.alert});
 
   ///
-  final SynrgProfile profile;
+  final SynrgProfile? profile;
 }

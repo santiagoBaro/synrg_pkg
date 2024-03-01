@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 ///
-class ProfileCompleteState extends StatelessWidget {
+class SynrgProfileView extends StatelessWidget {
   ///
-  const ProfileCompleteState({super.key});
+  const SynrgProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {

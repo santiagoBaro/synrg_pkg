@@ -2,10 +2,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:synrg/src/bloc/state.dart';
 
+/// Synrg Bloc Provider, is a wrapper to the Bloc Consumer which facilitates
+/// the user feedback by adding a listener for any alerts emitted from the BLoC
 ///
+/// By using this and making all of your BLoCs states extend SynrgState,
+/// you will have alerts
 class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
   const SynrgBlocProvider({
     required this.bloc,
@@ -47,27 +51,4 @@ class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
       ),
     );
   }
-}
-
-enum QuickAlertType {
-  /// success alert type
-  success,
-
-  /// error alert type
-  error,
-
-  /// warning alert type
-  warning,
-
-  /// confirm alert type
-  confirm,
-
-  /// info alert type
-  info,
-
-  /// loading alert type
-  loading,
-
-  /// custom alert type
-  custom,
 }

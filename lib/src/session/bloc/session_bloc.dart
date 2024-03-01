@@ -1,9 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:synrg/src/session/profile.dart';
-import 'package:synrg/src/session/view/initial_state.dart';
-import 'package:synrg/src/session/view/profile_complete.dart';
-import 'package:synrg/src/session/view/profile_incomplete.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:synrg/src/session/view/loading.dart';
+import 'package:synrg/src/session/view/not_authenticated.dart';
+import 'package:synrg/src/session/view/profile_form.dart';
+import 'package:synrg/src/session/view/profile_view.dart';
 import 'package:synrg/synrg.dart';
 
 part 'session_event.dart';
@@ -12,12 +13,51 @@ part 'session_state.dart';
 ///
 class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
   ///
-  SynrSessionBloc() : super(SynrSessionInitial()) {
-    on<SynrSessionEvent>((event, emit) {});
-    on<SynrLogin>((event, emit) {});
-    on<SynrLogout>((event, emit) {});
-    on<SynrRegister>((event, emit) {});
-    on<SynrUpdateProfile>((event, emit) {});
+  SynrSessionBloc() : super(SynrSessionLoadingState()) {
+    final auth = SynrgAuth();
+    on<SynrgAuthInit>((event, emit) async {
+      if (auth.user == null) {
+        emit(SynrNotAuthenticatedState());
+      } else {
+        final profile = await auth.profile();
+        if (profile == null || !profile.isComplete()) {
+          emit(SynrProfileFormState(profile));
+        } else {
+          emit(SynrProfileViewState(profile));
+        }
+      }
+    });
+    on<SynrLogin>((event, emit) async {
+      try {
+        await auth.signIn(event.email, event.password);
+      } catch (error) {
+        emit(
+          SynrNotAuthenticatedState(
+            alert: BlocAlert(
+              message: 'Sign In Error: $error',
+              level: QuickAlertType.error,
+            ),
+          ),
+        );
+      }
+    });
+    on<SynrLogout>((event, emit) async {
+      await auth.signOut();
+    });
+    on<SynrRegister>((event, emit) async {
+      try {
+        await auth.register(event.email, event.password);
+      } catch (error) {
+        emit(
+          SynrNotAuthenticatedState(
+            alert: BlocAlert(
+              message: 'Register Error: $error',
+              level: QuickAlertType.error,
+            ),
+          ),
+        );
+      }
+    });
   }
 }
 
@@ -31,14 +71,17 @@ class SynrgSessionProvider extends StatelessWidget {
     return SynrgBlocProvider<SynrSessionBloc>(
       bloc: SynrSessionBloc(),
       builder: (context, state) {
-        if (state is SynrSessionInitial) {
-          return const InitialState();
+        if (state is SynrSessionLoadingState) {
+          return const Loading();
         }
-        if (state is SynrProfileComplete) {
-          return const ProfileCompleteState();
+        if (state is SynrNotAuthenticatedState) {
+          return NotAuthenticated();
         }
-        if (state is SynrProfileIncomplete) {
-          return const ProfileIncompleteState();
+        if (state is SynrProfileFormState) {
+          return SynrgProfileForm();
+        }
+        if (state is SynrProfileViewState) {
+          return const SynrgProfileView();
         }
         return Container();
       },
