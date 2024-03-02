@@ -5,10 +5,13 @@ import 'package:synrg/src/session/profile.dart';
 /// Handles user authentication state
 class SynrgAuth {
   ///
-  factory SynrgAuth() {
+  factory SynrgAuth({Indexer<SynrgProfile>? profileIndex}) {
+    _instance.profileIndex = profileIndex;
     return _instance;
   }
-  SynrgAuth._internal(this.profileIndex);
+
+  SynrgAuth._internal();
+
   static final SynrgAuth _instance = SynrgAuth();
 
   /// Indexer where profile data is stored
