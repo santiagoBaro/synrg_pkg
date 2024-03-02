@@ -5,10 +5,9 @@ import 'package:synrg/synrg.dart';
 ///
 class SynrgProfileForm extends StatelessWidget {
   ///
-  SynrgProfileForm({super.key, this.profile});
+  SynrgProfileForm({super.key});
 
   ///
-  final SynrgMinProfile? profile;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
