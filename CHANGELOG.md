@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.0
+
+- Added wrapper for Firebase functionalities
+
 ## 0.1.3
 
 - Added copyWith method to SynrgClass

@@ -1,4 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:synrg/src/_internal.dart';
+import 'package:synrg/src/analytics.dart';
+import 'package:synrg/src/crashlytics.dart';
 import 'package:synrg/src/indexer.dart';
 import 'package:synrg/src/session/profile.dart';
 
@@ -24,6 +27,12 @@ class SynrgAuth {
   SynrgProfile? _profile;
   DateTime _lastUpdate = DateTime.now();
 
+  /// current user id
+  String? userId;
+
+  /// current user access token
+  String? accessToken;
+
   /// User sign in with email and password
   Future<void> signIn(String email, String password) async {
     final userCredential =
@@ -32,6 +41,10 @@ class SynrgAuth {
       password: password,
     );
     user = userCredential.user;
+    userId = user!.uid;
+    final tokenResult = await user!.getIdTokenResult();
+    accessToken = tokenResult.token;
+    await setUserId(id: user!.uid);
   }
 
   /// User registration with email and password
@@ -42,12 +55,16 @@ class SynrgAuth {
       password: password,
     );
     user = userCredential.user;
+    userId = user!.uid;
+    await setUserId(id: user!.uid);
   }
 
   /// User sign out
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     user = null;
+    userId = null;
+    await setUserId();
   }
 
   /// Get the current user´s profile
