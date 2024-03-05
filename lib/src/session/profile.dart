@@ -98,7 +98,4 @@ abstract class SynrgProfile extends SynrgClass {
       gender = user.photoURL ?? '';
     }
   }
-
-  /// Creates a copy of the current profile with the provided changes.
-  SynrgProfile copyWith(Map<String, dynamic> map);
 }

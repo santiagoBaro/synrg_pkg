@@ -38,6 +38,15 @@ class Project extends SynrgClass {
   Future<void> save() async {
     await projectIndex.save(this);
   }
+
+  @override
+  Project copyWith({String? id, String? name, String? type}) {
+    return Project(
+      id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+    );
+  }
 }
 
 //? Synrg Bloc Provider implementation

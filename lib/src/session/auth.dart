@@ -6,7 +6,9 @@ import 'package:synrg/src/session/profile.dart';
 class SynrgAuth {
   ///
   factory SynrgAuth({Indexer<SynrgProfile>? profileIndex}) {
-    _instance.profileIndex = profileIndex;
+    if (profileIndex != null) {
+      _instance.profileIndex = profileIndex;
+    }
     return _instance;
   }
 

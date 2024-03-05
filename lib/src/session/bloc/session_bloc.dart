@@ -61,7 +61,7 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
   }
 }
 
-///
+/// This serves only as an example, as SynrgProfile is an abstract.
 class SynrgSessionProvider extends StatelessWidget {
   ///
   const SynrgSessionProvider({super.key});
