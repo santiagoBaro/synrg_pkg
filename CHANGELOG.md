@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.1
+
+- Code refactor
+
 ## 0.2.0
 
 - Added wrapper for Firebase functionalities
