@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:synrg/synrg.dart';
 
 /// Firestore Wrapper, get and set given a "collectionName"
-class Indexer<T extends SynrgClass> {
+class SynrgIndexer<T extends SynrgClass> {
   /// Initializes the indexer for the given collection
-  Indexer(String collectionName, this._fromMap) {
+  SynrgIndexer(String collectionName, this._fromMap) {
     _collectionName = collectionName;
     _collection = FirebaseFirestore.instance.collection(collectionName);
   }

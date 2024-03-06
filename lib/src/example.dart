@@ -17,7 +17,7 @@ final payments = SynrgFunction<Project>('payments', Project.fromMap);
 final response = payments.call({'id': 'random_id'});
 
 //? Indexed Class Implementation
-final projectIndex = Indexer<Project>('projects', Project.fromMap);
+final projectIndex = SynrgIndexer<Project>('projects', Project.fromMap);
 final project = projectIndex.get('project-id');
 final projectList = projectIndex.batchGet([
   'project-id-1',

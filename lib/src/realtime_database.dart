@@ -67,10 +67,11 @@ class SynrgRealtimeDatabase {
       (event) {
         onData(event.snapshot);
       },
-      onError: (e, s) {
+      onError: (Object e, StackTrace s) {
+        // Specify types for e and s
         SynrgCrashlytics.instance.logError(
           e as Exception,
-          s as StackTrace,
+          s,
           reason: 'RealTime Database Update exception',
         );
       },

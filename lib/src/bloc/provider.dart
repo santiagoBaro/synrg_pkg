@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:synrg/src/bloc/state.dart';
+import 'package:synrg/synrg.dart';
 
 /// Synrg Bloc Provider, is a wrapper to the Bloc Consumer which facilitates
 /// the user feedback by adding a listener for any alerts emitted from the BLoC
@@ -31,7 +31,12 @@ class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
           return true;
         },
         builder: (context, state) {
-          return builder(context, state! as B);
+          final synrgState = state! as SynrgState;
+          SynrgAnalytics.instance.logEvent(
+            synrgState.toString(),
+            synrgState.toMap(),
+          );
+          return builder(context, state as B);
         },
         listener: (context, state) {
           state as SynrgState?;

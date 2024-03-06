@@ -11,12 +11,28 @@ abstract class SynrSessionState extends SynrgState {
 class SynrSessionLoadingState extends SynrSessionState {
   ///
   SynrSessionLoadingState({super.alert});
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {};
+  }
+
+  @override
+  String toString() => 'SynrSessionLoadingState';
 }
 
 ///
 final class SynrNotAuthenticatedState extends SynrSessionState {
   ///
   SynrNotAuthenticatedState({super.alert});
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {};
+  }
+
+  @override
+  String toString() => 'SynrNotAuthenticatedState';
 }
 
 ///
@@ -26,6 +42,16 @@ final class SynrProfileViewState extends SynrSessionState {
 
   ///
   final SynrgProfile profile;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'profile': profile.toMap(),
+    };
+  }
+
+  @override
+  String toString() => 'SynrProfileViewState';
 }
 
 ///
@@ -35,4 +61,15 @@ final class SynrProfileFormState extends SynrSessionState {
 
   ///
   final SynrgProfile? profile;
+
+  ///
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'profile': profile?.toMap(),
+    };
+  }
+
+  @override
+  String toString() => 'SynrProfileFormState';
 }
