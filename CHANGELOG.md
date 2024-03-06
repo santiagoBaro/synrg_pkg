@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.2
+
+- Improved readme
+
 ## 0.2.1
 
 - Code refactor

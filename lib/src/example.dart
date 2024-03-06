@@ -80,7 +80,7 @@ class DummyWidget extends StatelessWidget {
   }
 }
 
-//? Stateless ful validation implementation
+//? Stateful validation implementation
 class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
 

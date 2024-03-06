@@ -288,6 +288,26 @@ Here's a quick overview of how you might use each method in the SynrgDatabase cl
 This class is designed to be a starting point. Depending on your application's needs, you might want to expand this class with additional error handling, implement more sophisticated data transformation logic, or include other Firebase Realtime Database features.
 
 ```dart
+  // Write data
+  await SynrgRealtimeDatabase.instance
+      .writeData('users/user1', {'name': 'John', 'age': 30});
+
+  // Read data
+  final snapshot = await SynrgRealtimeDatabase.instance.readData('users/user1');
+  if (snapshot != null) {
+    print(snapshot.value);
+  }
+
+  // Listen to data changes
+  SynrgRealtimeDatabase.instance.listenToData('users/user1', (snapshot) {
+    print('Data changed: ${snapshot.value}');
+  });
+
+  // Update data
+  await SynrgRealtimeDatabase.instance.updateData('users/user1', {'age': 31});
+
+  // Delete data
+  await SynrgRealtimeDatabase.instance.deleteData('users/user1');
 ```
 
 ---
@@ -423,6 +443,78 @@ This wrapper class simplifies interaction with Firebase Remote Config, making it
   // Retrieve a boolean value
   final featureEnabled = SynrgRemoteConfig.instance.getBool('feature_enabled');
   print(featureEnabled ? 'Feature is enabled' : 'Feature is disabled');
+```
+
+## Validations
+
+```dart
+//? Stateful validation implementation
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+class MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            validator: validatePlainText,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data')),
+                );
+              }
+            },
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//? Stateless form validation implementation
+class MyStatelessForm extends StatelessWidget {
+  MyStatelessForm({super.key});
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            validator: validatePlainText,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data')),
+                );
+              }
+            },
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+}
 ```
 
 ---
