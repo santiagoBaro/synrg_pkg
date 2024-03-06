@@ -3,13 +3,23 @@ import 'package:synrg/src/session/auth.dart';
 
 ///
 class Location {
+  ///
   String address = '';
+
+  ///
   String city = '';
+
+  ///
   String state = '';
+
+  ///
   String country = '';
+
+  ///
   String postalCode = '';
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Location &&
@@ -21,6 +31,7 @@ class Location {
           postalCode == other.postalCode;
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode =>
       address.hashCode ^
       city.hashCode ^
@@ -83,7 +94,7 @@ abstract class SynrgProfile extends SynrgClass {
       return false;
     }
     if (additionalRequiredArguments.isNotEmpty) {
-      //TODO add additional values check
+      // add additional values check
     }
     return true;
   }

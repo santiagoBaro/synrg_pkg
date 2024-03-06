@@ -34,7 +34,8 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
         emit(
           SynrNotAuthenticatedState(
             alert: BlocAlert(
-              message: 'Sign In Error: $error',
+              title: 'Sign In Error',
+              message: error.toString(),
               level: QuickAlertType.error,
             ),
           ),

@@ -4,7 +4,8 @@ String? validateFileName(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a file name';
   }
-  // This regex checks for invalid characters in file names. It's basic and might need adjustments.
+  // This regex checks for invalid characters in file names. It's basic
+  // and might need adjustments.
   if (RegExp(r'[\\/:*?"<>|]').hasMatch(value)) {
     return 'File name contains invalid characters';
   }
@@ -17,7 +18,7 @@ String? validateFileExtension(String? value, List<String> allowedExtensions) {
   if (value == null || value.isEmpty) {
     return 'Please enter a file name';
   }
-  String extension = value.split('.').last;
+  final extension = value.split('.').last;
   if (!allowedExtensions.contains(extension)) {
     return 'File extension not allowed';
   }
@@ -37,10 +38,10 @@ String? validateFilePath(String? value) {
   return null;
 }
 
-/// Validates if the file size (in bytes) is within a given range.
-/// This function would typically be used in conjunction with file selection inputs.
-/// The size parameter should represent the file size in bytes.
-/// Returns `null` if valid, or an error message string if invalid.
+/// Validates if the file size (in bytes) is within a given range. This function
+/// would typically be used in conjunction with file selection inputs. The size
+/// parameter should represent the file size in bytes. Returns `null` if valid,
+/// or an error message string if invalid.
 String? validateFileSize(int size, int minSize, int maxSize) {
   if (size < minSize) {
     return 'File is too small';

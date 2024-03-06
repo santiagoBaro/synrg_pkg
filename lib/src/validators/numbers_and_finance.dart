@@ -109,7 +109,7 @@ String? validateCurrencyFormat(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter an amount';
   }
-  NumberFormat format = NumberFormat.currency(locale: 'en_US', symbol: '');
+  final format = NumberFormat.currency(locale: 'en_US', symbol: '');
   try {
     format.parse(value);
     return null;
@@ -124,7 +124,7 @@ String? validatePercentage(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a percentage';
   }
-  final num? percentage = num.tryParse(value);
+  final percentage = num.tryParse(value);
   if (percentage == null || percentage < 0 || percentage > 100) {
     return 'Enter a valid percentage (0-100)';
   }
@@ -137,7 +137,7 @@ String? validateQuantity(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a quantity';
   }
-  final int? quantity = int.tryParse(value);
+  final quantity = int.tryParse(value);
   if (quantity == null || quantity < 0) {
     return 'Enter a valid quantity';
   }
@@ -159,9 +159,10 @@ String? validateOrderNumber(String? value) {
 
 bool _isValidCreditCard(String number) {
   var sum = 0;
-  var length = number.length;
+  final length = number.length;
   for (var i = 0; i < length; i++) {
     var digit = int.parse(number[length - i - 1]);
+    // ignore: use_is_even_rather_than_modulo
     if (i % 2 == 1) {
       digit *= 2;
     }

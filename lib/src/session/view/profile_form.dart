@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:synrg/synrg.dart';
 
 ///
@@ -9,6 +8,7 @@ class SynrgProfileForm extends StatelessWidget {
 
   ///
 
+  // ignore: unused_field
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();

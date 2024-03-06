@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 /// Validates if the input string is plain text without any specific format.
-/// This function is quite permissive, as plain text can include nearly anything.
-/// Returns `null` if valid, or an error message string if invalid.
+/// This function is quite permissive, as plain text can include nearly
+///  anything.Returns `null` if valid, or an error message string if invalid.
 String? validatePlainText(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter some text';
@@ -10,8 +10,9 @@ String? validatePlainText(String? value) {
   return null;
 }
 
-/// Validates if the input string is rich text, typically containing formatting such as HTML.
-/// This is a basic check and might need to be more sophisticated based on your rich text specifications.
+/// Validates if the input string is rich text, typically containing
+/// formatting such as HTML. This is a basic check and might need to be
+/// more sophisticated based on your rich text specifications.
 String? validateRichText(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter rich text';
@@ -50,8 +51,8 @@ String? validateXMLString(String? value) {
   return null;
 }
 
-/// Validates if the input string is in valid CSV format.
-/// This is a basic implementation and might need adjustments for specific CSV rules.
+/// Validates if the input string is in valid CSV format. This is a basic
+/// implementation and might need adjustments for specific CSV rules.
 String? validateCSVFormat(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter CSV content';
@@ -70,9 +71,10 @@ String? validateSQLQuery(String? value) {
     return 'Please enter an SQL query';
   }
   // Simple check for SELECT/INSERT/UPDATE/DELETE statements.
-  if (!RegExp(r'^(SELECT|INSERT INTO|UPDATE|DELETE FROM)\s+',
-          caseSensitive: false)
-      .hasMatch(value)) {
+  if (!RegExp(
+    r'^(SELECT|INSERT INTO|UPDATE|DELETE FROM)\s+',
+    caseSensitive: false,
+  ).hasMatch(value)) {
     return 'Enter a valid SQL query';
   }
   return null;
@@ -93,7 +95,8 @@ String? validateRegularExpression(String? value) {
 }
 
 /// Validates if the input string is valid Markdown content.
-/// This function is permissive as Markdown can be plain text with specific symbols.
+/// This function is permissive as Markdown can be plain text
+/// with specific symbols.
 String? validateMarkdown(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter Markdown content';

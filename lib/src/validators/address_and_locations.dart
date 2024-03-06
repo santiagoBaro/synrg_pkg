@@ -17,7 +17,8 @@ String? validateCity(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a city name';
   }
-  // Basic validation for city names, can be expanded based on specific requirements
+  // Basic validation for city names, can be expanded
+  //based on specific requirements
   if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
     return 'Enter a valid city name';
   }
@@ -68,8 +69,8 @@ String? validateLatitudeLongitude(String? value) {
   }
   // Basic check for latitude and longitude format
   if (!RegExp(
-          r'^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$')
-      .hasMatch(value)) {
+    r'^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$',
+  ).hasMatch(value)) {
     return 'Enter a valid latitude and longitude';
   }
   return null;

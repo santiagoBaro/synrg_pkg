@@ -16,16 +16,16 @@ String? validateBMI(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a BMI';
   }
-  final double? bmi = double.tryParse(value);
+  final bmi = double.tryParse(value);
   if (bmi == null || bmi <= 0) {
     return 'Enter a valid BMI';
   }
   return null;
 }
 
-/// Validates Allergies information.
-/// Since allergies can vary widely, this function mainly checks for non-empty input.
-/// Returns `null` if valid, or an error message string if invalid.
+/// Validates Allergies information. Since allergies can vary widely, this
+/// function mainly checks for non-empty input. Returns `null` if valid, or
+/// an error message string if invalid.
 String? validateAllergies(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter allergies information';

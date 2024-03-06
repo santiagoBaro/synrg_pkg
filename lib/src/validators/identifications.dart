@@ -10,8 +10,8 @@ String? validateVIN(String? value) {
   return null;
 }
 
-/// Validates a License Plate.
-/// This is a basic validation and may need to be adjusted based on country-specific formats.
+/// Validates a License Plate. This is a basic validation and may need to
+/// be adjusted based on country-specific formats.
 String? validateLicensePlate(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a license plate';
@@ -50,9 +50,10 @@ String? validatePassportNumber(String? value) {
 /// Returns `null` if valid, or an error message string if invalid.
 String? validateDriversLicenseNumber(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a driver\'s license number';
+    return "Please enter a driver's license number";
   }
-  // This is a basic validation, adjust according to the specific country or state format.
+  // This is a basic validation, adjust according to the specific country
+  //or state format.
   return null; // Placeholder for specific validation logic.
 }
 
@@ -180,8 +181,9 @@ String? validateUruguayanID(String? value) {
   return null;
 }
 
-/// Validates an Argentinian National Identification Document (Documento Nacional de Identidad).
-/// Returns `null` if valid, or an error message string if invalid.
+/// Validates an Argentinian National Identification Document
+/// (Documento Nacional de Identidad). Returns `null` if valid,
+/// or an error message string if invalid.
 String? validateArgentinianDNI(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter an Argentinian DNI';

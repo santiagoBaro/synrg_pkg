@@ -17,8 +17,8 @@ String? validateDomainName(String? value) {
     return 'Please enter a domain name';
   }
   if (!RegExp(
-          r'^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$')
-      .hasMatch(value)) {
+    r'^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$',
+  ).hasMatch(value)) {
     return 'Enter a valid domain name';
   }
   return null;
@@ -96,6 +96,7 @@ String? validatePasswordStrength(String? value) {
   // Example: At least one uppercase, one lowercase, one digit, and 8 chars long
   if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')
       .hasMatch(value)) {
+    // ignore: lines_longer_than_80_chars
     return 'Password must contain at least 8 characters, including upper and lower case letters and a number';
   }
   return null;
@@ -105,7 +106,9 @@ String? validatePasswordStrength(String? value) {
 /// Compares two passwords for equality.
 /// Returns `null` if valid, or an error message string if invalid.
 String? validatePasswordConfirmation(
-    String? password, String? confirmPassword) {
+  String? password,
+  String? confirmPassword,
+) {
   if (password == null ||
       confirmPassword == null ||
       password.isEmpty ||
@@ -138,8 +141,9 @@ String? validateUUID(String? value) {
     return 'Please enter a UUID';
   }
   if (!RegExp(
-          r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$')
-      .hasMatch(value)) {
+    // ignore: lines_longer_than_80_chars
+    r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$',
+  ).hasMatch(value)) {
     return 'Enter a valid UUID';
   }
   return null;
@@ -176,7 +180,8 @@ String? validateBarcode(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a barcode';
   }
-  // Basic numeric check, specific formats (e.g., EAN, UPC) require more specific validation.
+  // Basic numeric check, specific formats (e.g., EAN, UPC) require
+  //more specific validation.
   if (!RegExp(r'^\d+$').hasMatch(value)) {
     return 'Enter a valid barcode (numeric values only)';
   }
@@ -190,8 +195,9 @@ String? validateQRCode(String? value) {
     return 'Please enter a QR code data';
   }
   // This is a very basic check since QR codes can encode various types of data.
-  // A more thorough validation would depend on the expected format of the data encoded in the QR code.
-  if (value.length < 1) {
+  // A more thorough validation would depend on the expected format of the data
+  // encoded in the QR code.
+  if (value.isEmpty) {
     return 'Enter valid QR code data';
   }
   return null;

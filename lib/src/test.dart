@@ -11,16 +11,6 @@ final response = payments.call({'id': 'random_id'});
 
 //? Indexed Class Implementation
 final projectIndex = SynrgIndexer<Project>('projects', Project.fromMap);
-final project = projectIndex.get('project-id');
-final projectList = projectIndex.batchGet([
-  'project-id-1',
-  'project-id-2',
-  'project-id-3',
-]);
-final projectQuery = projectIndex.query(
-  field: 'type',
-  isEqualTo: 'Ongoing',
-);
 
 class Project extends SynrgClass {
   String name;
@@ -146,6 +136,30 @@ class MyStatelessForm extends StatelessWidget {
       ),
     );
   }
+}
+
+//? Synrg Analytics
+void dummy() {
+  // Log a custom event
+  SynrgAnalytics.instance.logEvent(
+    'signup_button_click',
+    {'method': 'email_signup'},
+  );
+
+  // Set a user property
+  SynrgAnalytics.instance.setUserProperty(
+    name: 'favorite_color',
+    value: 'blue',
+  );
+
+  // Set the user ID
+  SynrgAnalytics.instance.setUserId('user123');
+
+  // Log a screen view
+  SynrgAnalytics.instance.logScreenView(
+    'HomePage',
+    parameters: {'engagement_time': '10 seconds'},
+  );
 }
 
 //? Synrg Crashlytics

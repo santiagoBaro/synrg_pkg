@@ -32,6 +32,7 @@ String? validateUsername(String? value) {
   }
   final regex = RegExp(r'^[a-zA-Z0-9._-]{3,20}$');
   if (!regex.hasMatch(value)) {
+    // ignore: lines_longer_than_80_chars
     return 'Username must be 3-20 characters long and can include letters, numbers, dots, dashes, and underscores';
   }
   return null;
@@ -98,7 +99,7 @@ String? validateAge(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter your age';
   }
-  final int? age = int.tryParse(value);
+  final age = int.tryParse(value);
   if (age == null || age < 0 || age > 120) {
     return 'Enter a valid age (0-120)';
   }

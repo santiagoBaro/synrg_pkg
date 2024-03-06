@@ -67,14 +67,14 @@ String? validateWeekday(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a weekday';
   }
-  List<String> weekdays = [
+  final weekdays = <String>[
     'Monday',
     'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
     'Saturday',
-    'Sunday'
+    'Sunday',
   ];
   if (!weekdays.contains(value)) {
     return 'Enter a valid weekday';
@@ -112,7 +112,8 @@ String? validateFiscalYear(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a fiscal year';
   }
-  // Fiscal year validation might be similar to regular year, but could be adjusted based on specific fiscal year rules.
+  // Fiscal year validation might be similar to regular year, but could be
+  // adjusted based on specific fiscal year rules.
   if (!RegExp(r'^\d{4}$').hasMatch(value)) {
     return 'Enter a valid fiscal year (YYYY)';
   }

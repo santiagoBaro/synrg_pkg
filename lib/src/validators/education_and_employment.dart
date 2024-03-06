@@ -67,7 +67,7 @@ String? validateGradeLevel(String? value) {
     return 'Please enter a grade level';
   }
   // Numeric check, adjust range as needed.
-  final int? level = int.tryParse(value);
+  final level = int.tryParse(value);
   if (level == null || level < 1 || level > 12) {
     // Assuming K-12 system, adjust as necessary.
     return 'Enter a valid grade level (1-12)';
@@ -81,7 +81,7 @@ String? validateGPA(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a GPA';
   }
-  final double? gpa = double.tryParse(value);
+  final gpa = double.tryParse(value);
   if (gpa == null || gpa < 0.0 || gpa > 4.0) {
     // Adjust max GPA if your system uses a different scale.
     return 'Enter a valid GPA (0.0-4.0)';

@@ -18,6 +18,36 @@ dart pub add synrg
 
 ---
 
+## Quick Start
+
+1. Create Firebase Project
+
+    - Enable Authentication by email
+    - Enable Analytics
+    - Enable PerformanceMonitoring
+    - Enable Crashlytics
+    - Enable Firestore
+    - Enable Storage
+    - Enable Hosting
+    - Enable RealTimeDatabase
+    - Enable RemoteConfig
+
+2. Download firebase_options.dart file and paste it into lib folder
+
+3. Initialize Firebase in app
+
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // FirebaseCrashlytics.instance.crash();
+
+  runApp(const MyApp());
+}
+```
+
 ## Overview
 
 This package is meant to facilitate the development of projects that use BLoC and Firebase architecture.
@@ -79,15 +109,15 @@ part of 'session_bloc.dart';
 
 @immutable
 abstract class SynrSessionState extends SynrgState {
-  ///
+
   SynrSessionState({super.alert});
 }
 
 final class SynrProfileViewState extends SynrSessionState {
-  ///
+  
   SynrProfileViewState(this.profile, {super.alert});
 
-  ///
+  
   final SynrgProfile profile;
 
   @override
@@ -110,7 +140,7 @@ For each state change it logs an event in SynrgAnalytics with the state´s name 
 
 ```dart
 class SynrgSessionProvider extends StatelessWidget {
-  ///
+  
   const SynrgSessionProvider({super.key});
 
   @override
@@ -158,7 +188,8 @@ SynrSessionBloc
         emit(
           SynrNotAuthenticatedState(
             alert: BlocAlert(
-              message: 'Sign In Error: $error',
+              title: 'Sign In Error',
+              message: error.toString(),
               level: QuickAlertType.error,
             ),
           ),
@@ -174,7 +205,7 @@ It standardizes the format and maps the response object.
 
 ```dart
 final payments = SynrgFunction<Project>('payments', Project.fromMap);
-final response = payments.call({'id': 'random_id'});
+final Project response = payments.call({'id': 'random_id'});
 ```
 
 ---
@@ -191,13 +222,13 @@ Other than simplifying the logic, it also handles the mapping of the models.
 
 ```dart
 final projectIndex = SynrgIndexer<Project>('projects', Project.fromMap);
-final project = projectIndex.get('project-id');
-final projectList = projectIndex.batchGet([
+final Project project = projectIndex.get('project-id');
+final List<Project> projectList = projectIndex.batchGet([
   'project-id-1',
   'project-id-2',
   'project-id-3',
 ]);
-final projectQuery = projectIndex.query(
+final List<Project> projectQuery = projectIndex.query(
   field: 'type',
   isEqualTo: 'Ongoing',
 );
