@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.4
+
+- Adds commonly used dependencies
+
 ## 0.2.3
 
 - Adds toMap method to Location

@@ -164,6 +164,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "color",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/color-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "convert",
       "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/convert-3.1.1",
       "packageUri": "lib/",
@@ -186,6 +192,12 @@
       "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/dart_style-2.3.6",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "dartx",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/dartx-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "diff_match_patch",
@@ -368,6 +380,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_gen",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/flutter_gen-5.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_gen_core",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/flutter_gen_core-5.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_localizations",
+      "rootUri": "file:///Users/santiagobaro/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/santiagobaro/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -417,9 +447,9 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/intl-0.19.0",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/intl-0.18.1",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "io",
@@ -522,6 +552,12 @@
       "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "petitparser",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/petitparser-6.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "plugin_platform_interface",
@@ -668,6 +704,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "time",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/time-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "timing",
       "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/timing-1.0.1",
       "packageUri": "lib/",
@@ -728,6 +770,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/xml-6.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "yaml",
       "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/yaml-3.1.2",
       "packageUri": "lib/",
@@ -740,7 +788,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-03-09T15:07:05.711991Z",
+  "generated": "2024-03-09T16:02:07.183709Z",
   "generator": "pub",
-  "generatorVersion": "3.3.0"
+  "generatorVersion": "3.3.1"
 }
