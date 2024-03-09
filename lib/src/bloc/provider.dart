@@ -17,7 +17,7 @@ class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
     super.key,
   });
   final B bloc;
-  final Widget Function(BuildContext, B) builder;
+  final Widget Function(BuildContext, SynrgState) builder;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
             synrgState.toString(),
             synrgState.toMap(),
           );
-          return builder(context, state as B);
+          return builder(context, state as SynrgState);
         },
         listener: (context, state) {
           state as SynrgState?;

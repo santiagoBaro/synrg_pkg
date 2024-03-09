@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.5
+
+- Fix casting bug in SynrgBlocProvider
+
 ## 0.2.4
 
 - Adds commonly used dependencies

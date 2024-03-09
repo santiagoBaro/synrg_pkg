@@ -261,7 +261,7 @@
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/firebase_core-2.25.5",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/firebase_core-2.27.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -788,7 +788,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-03-09T16:02:07.183709Z",
+  "generated": "2024-03-09T18:08:07.057393Z",
   "generator": "pub",
   "generatorVersion": "3.3.1"
 }
