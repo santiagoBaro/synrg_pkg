@@ -1,6 +1,6 @@
 name: synrg
 description: A Very Good Project created by Very Good CLI.
-version: 0.2.2
+version: 0.2.3
 homepage: https://www.synrg.software/
 repository: https://github.com/santiagoBaro/synrg_pkg
 
@@ -30,5 +30,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.0
+  mocktail: ^1.0.3
   very_good_analysis: ^5.1.0

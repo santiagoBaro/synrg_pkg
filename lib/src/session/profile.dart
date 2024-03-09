@@ -18,6 +18,15 @@ class Location {
   ///
   String postalCode = '';
 
+  /// Constructor for the Location class.
+  Location({
+    this.address = '',
+    this.city = '',
+    this.state = '',
+    this.country = '',
+    this.postalCode = '',
+  });
+
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) =>
@@ -38,6 +47,16 @@ class Location {
       state.hashCode ^
       country.hashCode ^
       postalCode.hashCode;
+
+  /// Converts a map to a Location object.
+  factory Location.fromMap(Map<String, dynamic> map) {
+    return Location()
+      ..address = map['address'] as String
+      ..city = map['city'] as String
+      ..state = map['state'] as String
+      ..country = map['country'] as String
+      ..postalCode = map['postalCode'] as String;
+  }
 }
 
 ///
@@ -101,7 +120,7 @@ abstract class SynrgProfile extends SynrgClass {
 
   /// this method tries to get the profiles data from FirebaseAUth´s User
   void getData() {
-    final user = SynrgAuth().user;
+    final user = SynrgAuth.instance.user;
     if (user != null) {
       name = user.displayName ?? '';
       email = user.email ?? '';

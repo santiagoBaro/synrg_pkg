@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.3
+
+- Adds toMap method to Location
+
 ## 0.2.2
 
 - Improved readme
