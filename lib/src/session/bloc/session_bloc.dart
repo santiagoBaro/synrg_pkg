@@ -14,7 +14,7 @@ part 'session_state.dart';
 class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
   ///
   SynrSessionBloc() : super(SynrSessionLoadingState()) {
-    final auth = SynrgAuth();
+    final auth = SynrgAuth.instance;
     on<SynrgAuthInit>((event, emit) async {
       if (auth.user == null) {
         emit(SynrNotAuthenticatedState());

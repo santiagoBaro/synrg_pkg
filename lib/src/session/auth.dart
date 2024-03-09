@@ -4,21 +4,27 @@ import 'package:synrg/synrg.dart';
 
 /// Handles user authentication state
 class SynrgAuth {
-  ///
-  factory SynrgAuth({SynrgIndexer<SynrgProfile>? profileIndex}) {
-    if (profileIndex != null) {
-      _instance.profileIndex = profileIndex;
-    }
-    return _instance;
+  // Private constructor
+  SynrgAuth._privateConstructor(this._auth, this.profileIndex);
+
+  static late final SynrgAuth _instance;
+
+  /// Provides a global access point to the SynrgAuth instance
+  /// Assumes `isInTestMode` is a global or context-specific flag
+  /// determining the environment.
+  static SynrgAuth get instance => _instance;
+
+  /// Method to initialize the SynrgAuth singleton with a profileIndex.
+  /// This should be called before accessing SynrgAuth.instance.
+  static void initialize(SynrgIndexer<SynrgProfile>? profileIndex) {
+    _instance =
+        SynrgAuth._privateConstructor(FirebaseAuth.instance, profileIndex);
   }
-
-  SynrgAuth._internal();
-
-  static final SynrgAuth _instance = SynrgAuth();
 
   /// Indexer where profile data is stored
   SynrgIndexer<SynrgProfile>? profileIndex;
   final _performance = SynrgPerformance.instance;
+  final FirebaseAuth _auth;
 
   ///
   User? user;
@@ -35,8 +41,7 @@ class SynrgAuth {
   Future<void> signIn(String email, String password) async {
     final trace = await _performance.startTrace('Sign In');
     try {
-      final userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -60,8 +65,7 @@ class SynrgAuth {
   Future<void> register(String email, String password) async {
     final trace = await _performance.startTrace('Register');
     try {
-      final userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -83,7 +87,7 @@ class SynrgAuth {
   Future<void> signOut() async {
     final trace = await _performance.startTrace('Sign Out');
     try {
-      await FirebaseAuth.instance.signOut();
+      await _auth.signOut();
       user = null;
       userId = null;
       await setUserId();
