@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.0
+
+- Fixes exports
+
 ## 0.2.7
 
 - Adds visual element export

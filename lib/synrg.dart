@@ -14,3 +14,4 @@ export 'src/session/session.dart';
 export 'src/storage.dart';
 export 'src/synrg.dart';
 export 'src/validators/validators.dart';
+export 'src/visual_elements/visual_elements.dart';
