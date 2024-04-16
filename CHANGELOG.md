@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.7
+
+- Adds visual element export
+
 ## 0.2.6
 
 - Change to Modal Provider interactivity implementation
