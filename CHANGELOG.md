@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.1
+
+- Adds state emit in login/ register success
+
 ## 0.3.0
 
 - Fixes exports

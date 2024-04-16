@@ -29,6 +29,8 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
     on<SynrLogin>((event, emit) async {
       try {
         await auth.signIn(event.email, event.password);
+        final profile = await auth.profile();
+        emit(SynrProfileFormState(profile));
       } catch (error) {
         emit(
           SynrNotAuthenticatedState(
@@ -43,10 +45,18 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
     });
     on<SynrLogout>((event, emit) async {
       await auth.signOut();
+      emit(
+        SynrNotAuthenticatedState(
+          modal: const SynrgModal(
+            message: 'Goodby',
+          ),
+        ),
+      );
     });
     on<SynrRegister>((event, emit) async {
       try {
         await auth.register(event.email, event.password);
+        emit(SynrProfileFormState(null));
       } catch (error) {
         emit(
           SynrNotAuthenticatedState(
