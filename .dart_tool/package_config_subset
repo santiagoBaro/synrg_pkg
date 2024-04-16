@@ -134,6 +134,10 @@ diff_match_patch
 2.12
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/diff_match_patch-0.4.1/
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/diff_match_patch-0.4.1/lib/
+equatable
+2.12
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/equatable-2.0.5/
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/equatable-2.0.5/lib/
 extra_pedantic
 2.16
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/extra_pedantic-3.0.0/
@@ -262,6 +266,10 @@ glob
 2.19
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/glob-2.1.2/
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/glob-2.1.2/lib/
+go_router
+3.2
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/go_router-13.2.1/
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/go_router-13.2.1/lib/
 graphs
 2.18
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/graphs-2.3.1/
@@ -278,6 +286,10 @@ http_parser
 2.12
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
+iconsax_flutter
+3.0
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/iconsax_flutter-1.0.0/
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/iconsax_flutter-1.0.0/lib/
 intl
 2.12
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/intl-0.18.1/
@@ -350,6 +362,10 @@ path
 3.0
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/path-1.9.0/
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/path-1.9.0/lib/
+pausable_timer
+3.0
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/pausable_timer-3.1.0+3/
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/pausable_timer-3.1.0+3/lib/
 petitparser
 3.2
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/petitparser-6.0.2/
@@ -454,6 +470,10 @@ timing
 2.14
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/timing-1.0.1/
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/timing-1.0.1/lib/
+toastification
+3.0
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/toastification-1.2.1/
+file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/toastification-1.2.1/lib/
 typed_data
 2.17
 file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/typed_data-1.3.2/

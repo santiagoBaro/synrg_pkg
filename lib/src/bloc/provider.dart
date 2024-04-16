@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:synrg/synrg.dart';
 
 /// Synrg Bloc Provider, is a wrapper to the Bloc Consumer which facilitates
@@ -40,17 +38,8 @@ class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
         },
         listener: (context, state) {
           state as SynrgState?;
-
-          if (state != null &&
-              state.alert != null &&
-              (kDebugMode ||
-                  state.alert!.level.name != QuickAlertType.warning.name)) {
-            QuickAlert.show(
-              context: context,
-              type: state.alert!.level,
-              title: state.alert!.title,
-              text: state.alert!.message,
-            );
+          if (state != null && state.modal != null) {
+            state.modal!.build(context);
           }
         },
       ),

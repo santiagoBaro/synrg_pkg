@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:synrg/src/session/view/loading.dart';
 import 'package:synrg/src/session/view/not_authenticated.dart';
 import 'package:synrg/src/session/view/profile_form.dart';
@@ -33,10 +32,10 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
       } catch (error) {
         emit(
           SynrNotAuthenticatedState(
-            alert: BlocAlert(
-              title: 'Sign In Error',
-              message: error.toString(),
-              level: QuickAlertType.error,
+            modal: SynrgModal(
+              message: 'Sign In Error: $error',
+              level: AlertLevel.error,
+              type: SynrgmodalType.snack,
             ),
           ),
         );
@@ -51,9 +50,9 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
       } catch (error) {
         emit(
           SynrNotAuthenticatedState(
-            alert: BlocAlert(
+            modal: SynrgModal(
               message: 'Register Error: $error',
-              level: QuickAlertType.error,
+              level: AlertLevel.error,
             ),
           ),
         );

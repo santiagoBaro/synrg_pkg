@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.6
+
+- Change to Modal Provider interactivity implementation
+
 ## 0.2.5
 
 - Fix casting bug in SynrgBlocProvider
