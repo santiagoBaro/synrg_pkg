@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.6
+
+- Fix SynrgAuth signin and register flow
+
 ## 0.3.5
 
 - Fix SynrgAuth bloc

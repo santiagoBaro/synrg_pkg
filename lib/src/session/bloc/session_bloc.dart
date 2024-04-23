@@ -30,6 +30,18 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
       SynrgProfile? profile;
       try {
         await auth.signIn(event.email, event.password);
+        if (auth.user == null) {
+          emit(
+            SynrNotAuthenticatedState(
+              modal: const SynrgModal(
+                message: 'Sign In Error',
+                level: AlertLevel.error,
+                type: SynrgmodalType.snack,
+              ),
+            ),
+          );
+          return;
+        }
         try {
           profile = await auth.profile();
           if (profile!.isComplete()) {
@@ -65,6 +77,18 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
     on<SynrRegister>((event, emit) async {
       try {
         await auth.register(event.email, event.password);
+        if (auth.user == null) {
+          emit(
+            SynrNotAuthenticatedState(
+              modal: const SynrgModal(
+                message: 'Register Error',
+                level: AlertLevel.error,
+                type: SynrgmodalType.snack,
+              ),
+            ),
+          );
+          return;
+        }
         emit(SynrProfileFormState(null));
       } catch (error) {
         emit(
