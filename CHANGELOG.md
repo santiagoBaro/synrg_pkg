@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.4
+
+- Improved Profile
+
 ## 0.3.3
 
 - Make id a named parameter

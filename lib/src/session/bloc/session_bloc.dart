@@ -76,6 +76,24 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
         );
       }
     });
+    on<SynrgUpdateProfile>((event, emit) async {
+      try {
+        await event.profile.save();
+        if (event.profile.isComplete()) {
+          emit(SynrProfileViewState(event.profile));
+        }
+        emit(SynrProfileFormState(event.profile));
+      } catch (error) {
+        emit(
+          SynrNotAuthenticatedState(
+            modal: SynrgModal(
+              message: 'Register Error: $error',
+              level: AlertLevel.error,
+            ),
+          ),
+        );
+      }
+    });
   }
 }
 

@@ -1,31 +1,42 @@
 import 'package:synrg/src/class.dart';
-import 'package:synrg/src/session/auth.dart';
+import 'package:synrg/synrg.dart';
 
 ///
 class Location {
-  ///
-  String address = '';
-
-  ///
-  String city = '';
-
-  ///
-  String state = '';
-
-  ///
-  String country = '';
-
-  ///
-  String postalCode = '';
+  /// Converts a map to a Location object.
+  factory Location.fromMap(Map<String, dynamic> map) {
+    return Location(
+      address: map['address'] as String,
+      city: map['city'] as String,
+      state: map['state'] as String,
+      country: map['country'] as String,
+      postalCode: map['postalCode'] as String,
+    );
+  }
 
   /// Constructor for the Location class.
-  Location({
+  const Location({
     this.address = '',
     this.city = '',
     this.state = '',
     this.country = '',
     this.postalCode = '',
   });
+
+  ///
+  final String address;
+
+  ///
+  final String city;
+
+  ///
+  final String state;
+
+  ///
+  final String country;
+
+  ///
+  final String postalCode;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
@@ -47,58 +58,62 @@ class Location {
       state.hashCode ^
       country.hashCode ^
       postalCode.hashCode;
-
-  /// Converts a map to a Location object.
-  factory Location.fromMap(Map<String, dynamic> map) {
-    return Location()
-      ..address = map['address'] as String
-      ..city = map['city'] as String
-      ..state = map['state'] as String
-      ..country = map['country'] as String
-      ..postalCode = map['postalCode'] as String;
-  }
 }
 
 ///
 abstract class SynrgProfile extends SynrgClass {
   ///
-  SynrgProfile({super.id});
+  SynrgProfile({
+    super.id = '',
+    this.name = '',
+    this.username = '',
+    this.email = '',
+    this.dateOfBirth,
+    this.gender = '',
+    this.location = const Location(),
+    this.interests = const [],
+    this.preferences = const {},
+    this.purchaseHistory = const [],
+    this.activityHistory = const [],
+    this.additionalRequiredArguments = const [],
+    this.isLocationRequired = false,
+  });
 
   /// The user's name.
-  String name = '';
+  final String name;
 
   /// The user's username.
-  String username = '';
+  final String username;
 
   /// The user's email address.
-  String email = '';
+  final String email;
 
   /// The user's date of birth.
-  DateTime? dateOfBirth;
+  final DateTime? dateOfBirth;
 
   /// The user's gender.
-  String gender = '';
+  final String gender;
 
   /// The user's location.
-  Location location = Location();
+  final Location location;
 
   /// The user's interests.
-  List<String> interests = [];
+  final List<String> interests;
 
   /// The user's preferences.
-  Map<String, dynamic> preferences = {};
+  final Map<String, dynamic> preferences;
 
   /// The user's purchase history.
-  List<String> purchaseHistory = [];
+  final List<String> purchaseHistory;
 
   /// The user's activity history.
-  List<String> activityHistory = [];
+  final List<String> activityHistory;
 
   /// Additional arguments that may be present in the profile.
-  List<String> additionalRequiredArguments = [];
+  final List<String> additionalRequiredArguments;
 
   /// Has to check for location in (is_complete) flow
-  bool isLocationRequired = false;
+  final bool isLocationRequired;
 
   /// Checks for the user´s basic profile information
   bool isComplete() {
@@ -109,7 +124,7 @@ abstract class SynrgProfile extends SynrgClass {
         gender.isEmpty) {
       return false;
     }
-    if (isLocationRequired && location == Location()) {
+    if (isLocationRequired && location == const Location()) {
       return false;
     }
     if (additionalRequiredArguments.isNotEmpty) {
@@ -120,12 +135,14 @@ abstract class SynrgProfile extends SynrgClass {
 
   /// this method tries to get the profiles data from FirebaseAUth´s User
   void getData() {
-    final user = SynrgAuth.instance.user;
-    if (user != null) {
-      name = user.displayName ?? '';
-      email = user.email ?? '';
-      dateOfBirth = user.metadata.creationTime;
-      gender = user.photoURL ?? '';
-    }
+    // final user = SynrgAuth.instance.user;
+    // if (user != null) {
+    //   copyWith(
+    //     name: user.displayName ?? '',
+    //     email: user.email ?? '',
+    //     dateOfBirth: user.metadata.creationTime,
+    //     gender: user.photoURL ?? '',
+    //   );
+    // }
   }
 }

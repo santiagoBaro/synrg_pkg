@@ -36,3 +36,11 @@ class SynrUpdateProfile extends SynrSessionEvent {
   });
   SynrgProfile profile;
 }
+
+///
+class SynrgUpdateProfile extends SynrSessionEvent {
+  SynrgUpdateProfile({
+    required this.profile,
+  });
+  SynrgProfile profile;
+}
