@@ -44,7 +44,7 @@ class SynrgIndexer<T extends SynrgClass> {
         await _performance.startTrace('Indexer save ( $_collectionName )');
     try {
       final data = _toMap(obj)!;
-      if (data['id'].toString() == '') {
+      if (!data.containsKey('id') || data['id'].toString().isEmpty) {
         final response = await _collection.add(data);
         data['id'] = response.id;
       } else {

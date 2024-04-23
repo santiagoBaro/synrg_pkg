@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.7 - 0.3.8
+
+- Fix save() id check
+
 ## 0.3.6
 
 - Fix SynrgAuth signin and register flow
