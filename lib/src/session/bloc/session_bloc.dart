@@ -27,10 +27,18 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
       }
     });
     on<SynrLogin>((event, emit) async {
+      SynrgProfile? profile;
       try {
         await auth.signIn(event.email, event.password);
-        final profile = await auth.profile();
-        emit(SynrProfileFormState(profile));
+        try {
+          profile = await auth.profile();
+          if (profile!.isComplete()) {
+            emit(SynrProfileViewState(profile));
+          }
+          emit(SynrProfileFormState(profile));
+        } catch (error) {
+          emit(SynrProfileFormState(null));
+        }
       } catch (error) {
         emit(
           SynrNotAuthenticatedState(

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.2
+
+- Adds try catch to login
+
 ## 0.3.1
 
 - Adds state emit in login/ register success
