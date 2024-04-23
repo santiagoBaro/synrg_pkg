@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.5
+
+- Fix SynrgAuth bloc
+
 ## 0.3.4
 
 - Improved Profile

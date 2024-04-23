@@ -34,8 +34,9 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
           profile = await auth.profile();
           if (profile!.isComplete()) {
             emit(SynrProfileViewState(profile));
+          } else {
+            emit(SynrProfileFormState(profile));
           }
-          emit(SynrProfileFormState(profile));
         } catch (error) {
           emit(SynrProfileFormState(null));
         }
@@ -81,8 +82,9 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
         await event.profile.save();
         if (event.profile.isComplete()) {
           emit(SynrProfileViewState(event.profile));
+        } else {
+          emit(SynrProfileFormState(event.profile));
         }
-        emit(SynrProfileFormState(event.profile));
       } catch (error) {
         emit(
           SynrNotAuthenticatedState(
