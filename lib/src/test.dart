@@ -15,8 +15,8 @@ final projectIndex = SynrgIndexer<Project>('projects', Project.fromMap);
 class Project extends SynrgClass {
   String name;
   String type;
-  Project(
-    super.id, {
+  Project({
+    super.id,
     required this.name,
     required this.type,
   });
@@ -33,7 +33,7 @@ class Project extends SynrgClass {
   @override
   factory Project.fromMap(Map<String, dynamic> map) {
     return Project(
-      map['name'] as String,
+      id: map['name'] as String,
       name: map['name'] as String,
       type: map['type'] as String,
     );
@@ -47,7 +47,7 @@ class Project extends SynrgClass {
   @override
   Project copyWith({String? id, String? name, String? type}) {
     return Project(
-      id ?? this.id,
+      id: id ?? this.id,
       name: name ?? this.name,
       type: type ?? this.type,
     );

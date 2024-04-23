@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.3
+
+- Make id a named parameter
+
 ## 0.3.2
 
 - Adds try catch to login

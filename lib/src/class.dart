@@ -1,7 +1,7 @@
 ///
 abstract class SynrgClass {
   ///
-  SynrgClass(this.id);
+  SynrgClass({this.id});
 
   /// Force override from.Map constructor
   factory SynrgClass.fromMap(Map<String, dynamic> map) {

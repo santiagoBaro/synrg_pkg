@@ -62,7 +62,7 @@ class Location {
 ///
 abstract class SynrgProfile extends SynrgClass {
   ///
-  SynrgProfile(super.id);
+  SynrgProfile({super.id});
 
   /// The user's name.
   String name = '';
