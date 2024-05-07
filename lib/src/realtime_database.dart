@@ -22,9 +22,7 @@ class SynrgRealtimeDatabase {
     try {
       final ref = _database.ref(path);
       await ref.set(data);
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,
@@ -41,14 +39,12 @@ class SynrgRealtimeDatabase {
     try {
       final ref = _database.ref(path);
       final snapshot = await ref.get();
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
       if (snapshot.exists) {
         return snapshot;
       } else {
         return null;
       }
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,
@@ -84,9 +80,7 @@ class SynrgRealtimeDatabase {
     try {
       final ref = _database.ref(path);
       await ref.update(data);
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,
@@ -103,9 +97,7 @@ class SynrgRealtimeDatabase {
     try {
       final ref = _database.ref(path);
       await ref.remove();
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,

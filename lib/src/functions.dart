@@ -34,27 +34,17 @@ class SynrgFunction<T extends SynrgClass> {
     );
     try {
       final result = await _function.call<Map<String, dynamic>>(data);
-      SynrgPerformance.instance.incrementMetric(
-        trace,
-        'Function ($_name) ${SynrgFunctionStatus.success}',
-        1,
-      );
       return SynrgResult(
         result: _fromMap(result.data),
         status: SynrgFunctionStatus.success,
       );
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(
-        trace,
-        'Function ($_name) ${SynrgFunctionStatus.failure}',
-        1,
-      );
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,
         reason: 'Function ($_name) exception',
       );
-      // TODO: Add all possible errors to the enum
+      // TODO(dsa): Add all possible errors to the enum
       return const SynrgResult(
         result: null,
         status: SynrgFunctionStatus.failure,

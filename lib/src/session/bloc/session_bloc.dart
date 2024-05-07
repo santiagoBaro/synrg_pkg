@@ -1,42 +1,39 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:synrg/src/session/view/loading.dart';
-import 'package:synrg/src/session/view/not_authenticated.dart';
-import 'package:synrg/src/session/view/profile_form.dart';
-import 'package:synrg/src/session/view/profile_view.dart';
 import 'package:synrg/synrg.dart';
 
 part 'session_event.dart';
 part 'session_state.dart';
 
 ///
-class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
+class SynrgSessionBloc extends Bloc<SynrgSessionEvent, SynrgSessionState> {
   ///
-  SynrSessionBloc() : super(SynrSessionLoadingState()) {
+  SynrgSessionBloc() : super(SynrgSessionLoadingState()) {
     final auth = SynrgAuth.instance;
     on<SynrgAuthInit>((event, emit) async {
+      auth.init();
       if (auth.user == null) {
-        emit(SynrNotAuthenticatedState());
+        emit(SynrgNotAuthenticatedState());
       } else {
         final profile = await auth.profile();
         if (profile == null || !profile.isComplete()) {
-          emit(SynrProfileFormState(profile));
+          emit(SynrgProfileFormState(profile));
         } else {
-          emit(SynrProfileViewState(profile));
+          emit(SynrgProfileViewState(profile));
         }
       }
     });
-    on<SynrLogin>((event, emit) async {
+    on<SynrgLogin>((event, emit) async {
       SynrgProfile? profile;
       try {
         await auth.signIn(event.email, event.password);
         if (auth.user == null) {
           emit(
-            SynrNotAuthenticatedState(
+            SynrgNotAuthenticatedState(
               modal: const SynrgModal(
                 message: 'Sign In Error',
                 level: AlertLevel.error,
-                type: SynrgmodalType.snack,
+                type: SynrgModalType.snack,
               ),
             ),
           );
@@ -45,54 +42,54 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
         try {
           profile = await auth.profile();
           if (profile!.isComplete()) {
-            emit(SynrProfileViewState(profile));
+            emit(SynrgLandingState(profile));
           } else {
-            emit(SynrProfileFormState(profile));
+            emit(SynrgProfileFormState(profile));
           }
         } catch (error) {
-          emit(SynrProfileFormState(null));
+          emit(SynrgProfileFormState(null));
         }
       } catch (error) {
         emit(
-          SynrNotAuthenticatedState(
+          SynrgNotAuthenticatedState(
             modal: SynrgModal(
               message: 'Sign In Error: $error',
               level: AlertLevel.error,
-              type: SynrgmodalType.snack,
+              type: SynrgModalType.snack,
             ),
           ),
         );
       }
     });
-    on<SynrLogout>((event, emit) async {
+    on<SynrgLogout>((event, emit) async {
       await auth.signOut();
       emit(
-        SynrNotAuthenticatedState(
+        SynrgNotAuthenticatedState(
           modal: const SynrgModal(
             message: 'Goodby',
           ),
         ),
       );
     });
-    on<SynrRegister>((event, emit) async {
+    on<SynrgRegister>((event, emit) async {
       try {
         await auth.register(event.email, event.password);
         if (auth.user == null) {
           emit(
-            SynrNotAuthenticatedState(
+            SynrgNotAuthenticatedState(
               modal: const SynrgModal(
                 message: 'Register Error',
                 level: AlertLevel.error,
-                type: SynrgmodalType.snack,
+                type: SynrgModalType.snack,
               ),
             ),
           );
           return;
         }
-        emit(SynrProfileFormState(null));
+        emit(SynrgProfileFormState(null));
       } catch (error) {
         emit(
-          SynrNotAuthenticatedState(
+          SynrgNotAuthenticatedState(
             modal: SynrgModal(
               message: 'Register Error: $error',
               level: AlertLevel.error,
@@ -105,13 +102,13 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
       try {
         await event.profile.save();
         if (event.profile.isComplete()) {
-          emit(SynrProfileViewState(event.profile));
+          emit(SynrgLandingState(event.profile));
         } else {
-          emit(SynrProfileFormState(event.profile));
+          emit(SynrgProfileFormState(event.profile));
         }
       } catch (error) {
         emit(
-          SynrNotAuthenticatedState(
+          SynrgNotAuthenticatedState(
             modal: SynrgModal(
               message: 'Register Error: $error',
               level: AlertLevel.error,
@@ -120,33 +117,5 @@ class SynrSessionBloc extends Bloc<SynrSessionEvent, SynrSessionState> {
         );
       }
     });
-  }
-}
-
-/// This serves only as an example, as SynrgProfile is an abstract.
-class SynrgSessionProvider extends StatelessWidget {
-  ///
-  const SynrgSessionProvider({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SynrgBlocProvider<SynrSessionBloc>(
-      bloc: SynrSessionBloc(),
-      builder: (context, state) {
-        if (state is SynrSessionLoadingState) {
-          return const Loading();
-        }
-        if (state is SynrNotAuthenticatedState) {
-          return NotAuthenticated();
-        }
-        if (state is SynrProfileFormState) {
-          return SynrgProfileForm();
-        }
-        if (state is SynrProfileViewState) {
-          return const SynrgProfileView();
-        }
-        return Container();
-      },
-    );
   }
 }

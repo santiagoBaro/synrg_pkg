@@ -37,6 +37,15 @@ class SynrgAuth {
   /// current user access token
   String? accessToken;
 
+  /// Initialize authentication
+  void init() {
+    user = _auth.currentUser;
+    if (user != null) {
+      userId = user!.uid;
+    }
+    setUserId(null);
+  }
+
   /// User sign in with email and password
   Future<void> signIn(String email, String password) async {
     final trace = await _performance.startTrace('Sign In');
@@ -49,7 +58,7 @@ class SynrgAuth {
       userId = user!.uid;
       final tokenResult = await user!.getIdTokenResult();
       accessToken = tokenResult.token;
-      await setUserId(id: user!.uid);
+      await setUserId(user!.uid);
     } on Exception catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error,
@@ -71,7 +80,7 @@ class SynrgAuth {
       );
       user = userCredential.user;
       userId = user!.uid;
-      await setUserId(id: user!.uid);
+      await setUserId(user!.uid);
     } on Exception catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error,
@@ -90,7 +99,7 @@ class SynrgAuth {
       await _auth.signOut();
       user = null;
       userId = null;
-      await setUserId();
+      await setUserId(null);
     } on Exception catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error,
@@ -113,7 +122,7 @@ class SynrgAuth {
           return _profile;
         }
       }
-      // otherwise call firestore profile table
+      // otherwise call fireStore profile table
       _lastUpdate = DateTime.now();
       return profileIndex!.get(user!.uid);
     } on Exception catch (error, stackTrace) {

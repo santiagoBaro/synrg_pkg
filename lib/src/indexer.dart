@@ -26,9 +26,7 @@ class SynrgIndexer<T extends SynrgClass> {
         data['id'] = id;
         return _fromMap(data);
       }
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,
@@ -50,10 +48,8 @@ class SynrgIndexer<T extends SynrgClass> {
       } else {
         await _collection.doc(data['id'].toString()).set(data);
       }
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
       return obj;
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,
@@ -86,10 +82,8 @@ class SynrgIndexer<T extends SynrgClass> {
           filteredData.add(e);
         }
       }
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
       return filteredData;
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,
@@ -153,10 +147,8 @@ class SynrgIndexer<T extends SynrgClass> {
           filteredData.add(e);
         }
       }
-      SynrgPerformance.instance.incrementMetric(trace, 'success', 1);
       return filteredData;
     } catch (e, stackTrace) {
-      SynrgPerformance.instance.incrementMetric(trace, 'failure', 1);
       SynrgCrashlytics.instance.logError(
         e as Exception,
         stackTrace,

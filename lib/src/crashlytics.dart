@@ -19,7 +19,8 @@ class SynrgCrashlytics {
     _crashlytics.recordError(exception, stackTrace, reason: reason);
   }
 
-  /// Sets a custom key-value pair that will be attached to subsequent crash reports
+  /// Sets a custom key-value pair
+  /// that will be attached to subsequent crash reports
   void setCustomKey({
     required String key,
     required Object value,
@@ -27,7 +28,8 @@ class SynrgCrashlytics {
     _crashlytics.setCustomKey(key, value);
   }
 
-  /// Sets the user identifier for associating user data with subsequent crash reports
+  /// Sets the user identifier for associating
+  /// user data with subsequent crash reports
   void setUserIdentifier(String identifier) {
     _crashlytics.setUserIdentifier(identifier);
   }
@@ -45,7 +47,8 @@ class SynrgCrashlytics {
   /// Sets a custom key-value pair dynamically, handling null values
   void setDynamicCustomKey(String key, dynamic value) {
     if (value == null) {
-      // Handle null if necessary, perhaps by logging a warning or using a default value.
+      // Handle null if necessary, perhaps by
+      // logging a warning or using a default value.
     } else {
       _crashlytics.setCustomKey(key, value as Object);
     }

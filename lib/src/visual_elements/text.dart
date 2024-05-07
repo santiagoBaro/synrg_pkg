@@ -27,7 +27,7 @@ class SynrgText extends StatelessWidget {
     this.padding = const EdgeInsets.all(SynrgSize.x1),
   });
 
-  factory SynrgText.headexr(
+  factory SynrgText.header(
     String text, {
     TextAlign textAlign = TextAlign.start,
   }) {
@@ -77,7 +77,6 @@ class SynrgText extends StatelessWidget {
         softWrap: softWrap,
         overflow: overflow,
         locale: locale,
-        textScaleFactor: textScaleFactor,
         textScaler: textScaler,
         semanticsLabel: semanticsLabel,
         textWidthBasis: textWidthBasis,

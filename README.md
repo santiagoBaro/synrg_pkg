@@ -22,15 +22,15 @@ dart pub add synrg
 
 1. Create Firebase Project
 
-    - Enable Authentication by email
-    - Enable Analytics
-    - Enable PerformanceMonitoring
-    - Enable Crashlytics
-    - Enable Firestore
-    - Enable Storage
-    - Enable Hosting
-    - Enable RealTimeDatabase
-    - Enable RemoteConfig
+   - Enable Authentication by email
+   - Enable Analytics
+   - Enable PerformanceMonitoring
+   - Enable Crashlytics
+   - Enable Firestore
+   - Enable Storage
+   - Enable Hosting
+   - Enable RealTimeDatabase
+   - Enable RemoteConfig
 
 2. Download firebase_options.dart file and paste it into lib folder
 
@@ -80,7 +80,7 @@ class Profile extends SynrgProfile {
     Profile(super.id);
 
     List<Project> projects;
-    
+
     ...
 }
 
@@ -114,10 +114,10 @@ abstract class SynrSessionState extends SynrgState {
 }
 
 final class SynrProfileViewState extends SynrSessionState {
-  
+
   SynrProfileViewState(this.profile, {super.alert});
 
-  
+
   final SynrgProfile profile;
 
   @override
@@ -140,7 +140,7 @@ For each state change it logs an event in SynrgAnalytics with the state´s name 
 
 ```dart
 class SynrgSessionProvider extends StatelessWidget {
-  
+
   const SynrgSessionProvider({super.key});
 
   @override
@@ -244,7 +244,7 @@ This SynrgStorage class provides basic functionality for uploading, downloading,
 - The downloadFile method downloads a file from Cloud Storage to a specified local path on the device.
 - The deleteFile method deletes a file at a specified path within Cloud Storage.
 
-*All methods are integrated with Crashlytics and Performance Monitoring to log metrics*
+_All methods are integrated with Crashlytics and Performance Monitoring to log metrics_
 
 ```dart
   final fileToUpload = File('path/to/local/file.jpg');
@@ -283,7 +283,7 @@ Here's a quick overview of how you might use each method in the SynrgDatabase cl
 - Updating Data: Use updateData to modify existing data at a given path without overwriting it entirely.
 - Deleting Data: Call deleteData to remove data at a specified path.
 
-*All methods are integrated with Crashlytics and Performance Monitoring to log metrics*
+_All methods are integrated with Crashlytics and Performance Monitoring to log metrics_
 
 This class is designed to be a starting point. Depending on your application's needs, you might want to expand this class with additional error handling, implement more sophisticated data transformation logic, or include other Firebase Realtime Database features.
 
@@ -344,7 +344,7 @@ Here's how you can use the SynrgAnalytics class in your Flutter app to log event
 - Metric Increment: If you have counters or other metrics that you want to track within a trace, use incrementMetric.
 - Set Trace Attributes: Use setAttribute to add custom metadata to your traces, which can help with filtering and analyzing performance data in the Firebase console.
 - HTTP Monitoring: Use startHttpMetric and stopHttpMetric to manually track HTTP requests. This is useful for measuring the performance of network requests not automatically captured by Firebase.
-This wrapper class simplifies the interaction with Firebase Performance Monitoring by abstracting some of the setup and management of traces and metrics. You can extend this class further based on your specific performance monitoring needs.
+  This wrapper class simplifies the interaction with Firebase Performance Monitoring by abstracting some of the setup and management of traces and metrics. You can extend this class further based on your specific performance monitoring needs.
 
 ```dart
   // Start a new trace
@@ -419,7 +419,7 @@ This wrapper class simplifies the interaction with Firebase Crashlytics, making 
 
 3. Accessing Values: Use getBool, getInt, getDouble, and getString to access configuration values by key. These methods allow you to retrieve the appropriate data types stored in Remote Config.
 
-*All methods are integrated with Crashlytics and Performance Monitoring to log metrics*
+_All methods are integrated with Crashlytics and Performance Monitoring to log metrics_
 
 This wrapper class simplifies interaction with Firebase Remote Config, making it more convenient to manage your app's remote configuration. It encapsulates common tasks, such as initializing Remote Config with default values, fetching the latest configurations, and accessing these values within your app.
 

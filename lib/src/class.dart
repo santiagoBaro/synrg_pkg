@@ -14,7 +14,7 @@ abstract class SynrgClass {
   /// Mapper function, used by indexer to parse data
   Map<String, dynamic> toMap();
 
-  /// save function, persists the changes in Firestore
+  /// save function, persists the changes in FireStore
   Future<void> save();
 
   /// copy with

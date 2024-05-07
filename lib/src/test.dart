@@ -16,9 +16,9 @@ class Project extends SynrgClass {
   String name;
   String type;
   Project({
-    super.id,
     required this.name,
     required this.type,
+    super.id,
   });
 
   @override
@@ -60,8 +60,8 @@ class DummyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SynrgBlocProvider<SynrSessionBloc>(
-      bloc: SynrSessionBloc(),
+    return SynrgBlocProvider<SynrgSessionBloc>(
+      bloc: SynrgSessionBloc(),
       builder: (context, state) {
         // Your widget content based on state
         return Container();
@@ -142,8 +142,8 @@ class MyStatelessForm extends StatelessWidget {
 void dummy() {
   // Log a custom event
   SynrgAnalytics.instance.logEvent(
-    'signup_button_click',
-    {'method': 'email_signup'},
+    'sign_up_button_click',
+    {'method': 'email_sign_up'},
   );
 
   // Set a user property

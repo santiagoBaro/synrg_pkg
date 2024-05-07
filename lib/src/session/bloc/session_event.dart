@@ -2,45 +2,37 @@
 part of 'session_bloc.dart';
 
 ///
-sealed class SynrSessionEvent {}
+sealed class SynrgSessionEvent {}
 
-class SynrgAuthInit extends SynrSessionEvent {}
+class SynrgAuthInit extends SynrgSessionEvent {}
 
 ///
-class SynrLogin extends SynrSessionEvent {
-  SynrLogin({
+class SynrgLogin extends SynrgSessionEvent {
+  SynrgLogin({
     required this.email,
     required this.password,
   });
-  String email;
-  String password;
+  final String email;
+  final String password;
 }
 
 ///
-class SynrLogout extends SynrSessionEvent {}
+class SynrgLogout extends SynrgSessionEvent {}
 
 ///
-class SynrRegister extends SynrSessionEvent {
-  SynrRegister({
+class SynrgRegister extends SynrgSessionEvent {
+  SynrgRegister({
     required this.email,
     required this.password,
   });
-  String email;
-  String password;
+  final String email;
+  final String password;
 }
 
 ///
-class SynrUpdateProfile extends SynrSessionEvent {
-  SynrUpdateProfile({
-    required this.profile,
-  });
-  SynrgProfile profile;
-}
-
-///
-class SynrgUpdateProfile extends SynrSessionEvent {
+class SynrgUpdateProfile extends SynrgSessionEvent {
   SynrgUpdateProfile({
     required this.profile,
   });
-  SynrgProfile profile;
+  final SynrgProfile profile;
 }

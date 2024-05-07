@@ -27,11 +27,11 @@ enum AlertLevel {
 }
 
 ///
-enum SynrgmodalType {
+enum SynrgModalType {
   /// Shows an alert dialog on the center of the view
   popup,
 
-  /// Shows a drawer that emerges vrom the bottom of the screen
+  /// Shows a drawer that emerges from the bottom of the screen
   drawer,
 
   /// Shows a snackbar on the bottom of the screen
@@ -55,7 +55,7 @@ class SynrgModal {
     this.actionName,
     this.action,
     this.level = AlertLevel.info,
-    this.type = SynrgmodalType.toast,
+    this.type = SynrgModalType.toast,
     this.widget,
   });
 
@@ -75,12 +75,12 @@ class SynrgModal {
   final AlertLevel level;
 
   ///
-  final SynrgmodalType type;
+  final SynrgModalType type;
 
   ///
   void build(BuildContext context) {
     switch (type) {
-      case SynrgmodalType.popup:
+      case SynrgModalType.popup:
         showDialog<void>(
           context: context,
           barrierDismissible: false, // user must tap button!
@@ -110,7 +110,7 @@ class SynrgModal {
             );
           },
         );
-      case SynrgmodalType.drawer:
+      case SynrgModalType.drawer:
         showModalBottomSheet<void>(
           context: context,
           builder: (BuildContext context) {
@@ -147,7 +147,7 @@ class SynrgModal {
             );
           },
         );
-      case SynrgmodalType.snack:
+      case SynrgModalType.snack:
         final snackBar = SnackBar(
           content: Column(
             children: [
@@ -166,7 +166,7 @@ class SynrgModal {
               : null,
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      case SynrgmodalType.bubble:
+      case SynrgModalType.bubble:
         toastification.show(
           context: context,
           title: Column(
@@ -180,13 +180,13 @@ class SynrgModal {
           alignment: Alignment.topRight,
           type: _toToastLevel(level),
         );
-      case SynrgmodalType.overlay:
+      case SynrgModalType.overlay:
         // showModalBottomSheet(
         //   context: context,
         //   builder: (context) => widget,
         // );
         break;
-      case SynrgmodalType.toast:
+      case SynrgModalType.toast:
         toastification.show(
           context: context,
           title: Column(

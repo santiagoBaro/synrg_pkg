@@ -3,6 +3,15 @@ import 'package:synrg/synrg.dart';
 
 ///
 class Location {
+  /// Constructor for the Location class.
+  const Location({
+    this.address = '',
+    this.city = '',
+    this.state = '',
+    this.country = '',
+    this.postalCode = '',
+  });
+
   /// Converts a map to a Location object.
   factory Location.fromMap(Map<String, dynamic> map) {
     return Location(
@@ -13,15 +22,6 @@ class Location {
       postalCode: map['postalCode'] as String,
     );
   }
-
-  /// Constructor for the Location class.
-  const Location({
-    this.address = '',
-    this.city = '',
-    this.state = '',
-    this.country = '',
-    this.postalCode = '',
-  });
 
   ///
   final String address;
