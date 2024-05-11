@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:synrg/src/session/session.dart';
 import 'package:synrg/synrg.dart';
 
 part 'session_event.dart';
@@ -19,7 +20,7 @@ class SynrgSessionBloc extends Bloc<SynrgSessionEvent, SynrgSessionState> {
         if (profile == null || !profile.isComplete()) {
           emit(SynrgProfileFormState(profile));
         } else {
-          emit(SynrgProfileViewState(profile));
+          emit(SynrgLandingState(profile));
         }
       }
     });

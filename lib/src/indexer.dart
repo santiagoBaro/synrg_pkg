@@ -32,6 +32,8 @@ class SynrgIndexer<T extends SynrgClass> {
         stackTrace,
         reason: 'Indexer Get ($_collectionName) Exception',
       );
+    } finally {
+      await SynrgPerformance.instance.stopTrace(trace);
     }
     return null;
   }
