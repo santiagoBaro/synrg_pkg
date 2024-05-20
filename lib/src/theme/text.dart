@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:synrg/src/visual_elements/size.dart';
+import 'package:synrg/src/theme/size.dart';
 
 ///
 class SynrgText extends StatelessWidget {
@@ -85,4 +85,23 @@ class SynrgText extends StatelessWidget {
       ),
     );
   }
+}
+
+class SynrgTextTheme {
+  SynrgTextTheme({
+    this.title = const TextStyle(),
+    this.subtitle = const TextStyle(),
+    this.body = const TextStyle(),
+    this.placeholder = const TextStyle(),
+    this.highlight = const TextStyle(),
+    this.link = const TextStyle(),
+    this.button = const TextStyle(),
+  });
+  TextStyle title;
+  TextStyle subtitle;
+  TextStyle body;
+  TextStyle placeholder;
+  TextStyle highlight;
+  TextStyle link;
+  TextStyle button;
 }

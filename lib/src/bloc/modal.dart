@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:synrg/src/visual_elements/theme.dart';
+import 'package:synrg/src/theme/theme.dart';
 import 'package:toastification/toastification.dart';
 
 /// Alert Type
@@ -83,14 +83,14 @@ class SynrgModal {
       case SynrgModalType.popup:
         showDialog<void>(
           context: context,
-          barrierDismissible: false, // user must tap button!
+          barrierDismissible: false,
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text(message),
               content: widget,
               actions: <Widget>[
                 TextButton(
-                  style: synrgTheme.secondaryButtonStyle,
+                  style: synrgTheme.button.secondary,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -98,7 +98,7 @@ class SynrgModal {
                 ),
                 if (action != null)
                   TextButton(
-                    style: synrgTheme.primaryButtonStyle,
+                    style: synrgTheme.button.primary,
                     onPressed: () {
                       // ignore: avoid_dynamic_calls
                       action!();
@@ -128,7 +128,7 @@ class SynrgModal {
                       children: [
                         ElevatedButton(
                           onPressed: () => Navigator.pop(context),
-                          style: synrgTheme.secondaryButtonStyle,
+                          style: synrgTheme.button.secondary,
                           child: const Text('Close'),
                         ),
                         if (action != null)

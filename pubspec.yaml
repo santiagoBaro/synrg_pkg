@@ -1,6 +1,6 @@
 name: synrg
 description: A Very Good Project created by Very Good CLI.
-version: 0.3.10
+version: 0.4.0
 homepage: https://www.synrg.software/
 repository: https://github.com/santiagoBaro/synrg_pkg
 
@@ -24,11 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.4
-  flutter_gen: any
+  flutter_gen: ^5.4.0
   flutter_localizations:
     sdk: flutter
   go_router: ^13.2.1
-  intl: ^0.18.1
+  intl: ^0.19.0
   meta: ^1.10.0
   quickalert: ^1.0.2
   shared_preferences: ^2.2.3

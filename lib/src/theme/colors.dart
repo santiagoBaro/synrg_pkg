@@ -8,8 +8,11 @@ class SynrgColors {
   SynrgColors({
     required this.brand,
     required this.primary,
+    required this.primaryAccent,
     required this.secondary,
+    required this.secondaryAccent,
     required this.tertiary,
+    required this.tertiaryAccent,
     required this.background,
     required this.cardBackground,
     required this.shadow,
@@ -43,8 +46,11 @@ class SynrgColors {
   SynrgColors.blue()
       : brand = Colors.blue,
         primary = Colors.blue,
+        primaryAccent = Colors.blueAccent,
         secondary = Colors.lightBlue,
+        secondaryAccent = Colors.lightBlueAccent,
         tertiary = Colors.cyan,
+        tertiaryAccent = Colors.cyanAccent,
         background = Colors.white,
         cardBackground = Colors.blue[50]!,
         shadow = Colors.blueGrey[300]!,
@@ -77,8 +83,11 @@ class SynrgColors {
   SynrgColors.red()
       : brand = Colors.red.shade900,
         primary = Colors.red,
+        primaryAccent = Colors.redAccent,
         secondary = Colors.red,
+        secondaryAccent = Colors.redAccent,
         tertiary = Colors.pink,
+        tertiaryAccent = Colors.pinkAccent,
         background = Colors.red.shade50,
         cardBackground = Colors.white,
         shadow = Colors.red.shade100,
@@ -111,8 +120,11 @@ class SynrgColors {
   SynrgColors.yellow()
       : brand = Colors.yellow.shade800,
         primary = Colors.yellow,
+        primaryAccent = Colors.yellowAccent,
         secondary = Colors.yellow,
+        secondaryAccent = Colors.yellowAccent,
         tertiary = Colors.amber,
+        tertiaryAccent = Colors.amberAccent,
         background = Colors.yellow.shade50,
         cardBackground = Colors.white,
         shadow = Colors.yellow.shade100,
@@ -145,8 +157,11 @@ class SynrgColors {
   SynrgColors.green()
       : brand = Colors.green.shade800,
         primary = Colors.green,
+        primaryAccent = Colors.greenAccent,
         secondary = Colors.green,
+        secondaryAccent = Colors.greenAccent,
         tertiary = Colors.lightGreen,
+        tertiaryAccent = Colors.lightGreenAccent,
         background = Colors.green.shade50,
         cardBackground = Colors.white,
         shadow = Colors.green.shade100,
@@ -178,8 +193,11 @@ class SynrgColors {
   /// Pallet
   final Color brand;
   final MaterialColor primary;
+  final MaterialAccentColor primaryAccent;
   final MaterialColor secondary;
+  final MaterialAccentColor secondaryAccent;
   final MaterialColor tertiary;
+  final MaterialAccentColor tertiaryAccent;
 
   /// UI
   final Color background;
@@ -220,8 +238,11 @@ class SynrgColors {
   SynrgColors copyWith({
     Color? brand,
     MaterialColor? primary,
+    MaterialAccentColor? primaryAccent,
     MaterialColor? secondary,
+    MaterialAccentColor? secondaryAccent,
     MaterialColor? tertiary,
+    MaterialAccentColor? tertiaryAccent,
     Color? background,
     Color? cardBackground,
     Color? shadow,
@@ -253,8 +274,11 @@ class SynrgColors {
     return SynrgColors(
       brand: brand ?? this.brand,
       primary: primary ?? this.primary,
+      primaryAccent: primaryAccent ?? this.primaryAccent,
       secondary: secondary ?? this.secondary,
+      secondaryAccent: secondaryAccent ?? this.secondaryAccent,
       tertiary: tertiary ?? this.tertiary,
+      tertiaryAccent: tertiaryAccent ?? this.tertiaryAccent,
       background: background ?? this.background,
       cardBackground: cardBackground ?? this.cardBackground,
       shadow: shadow ?? this.shadow,

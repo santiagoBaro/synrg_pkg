@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.4.0
+
+- Changed theme structure
+
+## 0.3.10
+
+- Fixed auth init profile complete emit Landing State
+
 ## 0.3.9
 
 - Fixed typos
