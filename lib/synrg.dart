@@ -14,5 +14,5 @@ export 'src/remote_config.dart';
 export 'src/session/session.dart';
 export 'src/storage.dart';
 export 'src/synrg.dart';
+export 'src/theme/theme.dart';
 export 'src/validators/validators.dart';
-export 'src/theme/visual_elements.dart';

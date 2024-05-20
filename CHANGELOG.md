@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.4.2
+
+- Comments copyWith method in SynrgState
+
+## 0.4.1
+
+- Fixed missing export
+
 ## 0.4.0
 
 - Changed theme structure

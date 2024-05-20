@@ -8,11 +8,11 @@ class SynrgState {
 
   /// basic implementation of copy with method,
   /// if there are more attributes it should be overwritten
-  SynrgState copyWith({SynrgModal? modal}) {
-    return SynrgState(
-      modal: modal ?? this.modal,
-    );
-  }
+  // SynrgState copyWith({SynrgModal? modal}) {
+  //   return SynrgState(
+  //     modal: modal ?? this.modal,
+  //   );
+  // }
 
   /// Modal attribute used by the SynrgProvider to handle user feedback alerts.
   final SynrgModal? modal;
