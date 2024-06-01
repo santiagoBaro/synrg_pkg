@@ -2,6 +2,10 @@
 
 ## 0.4.2
 
+- Adds equatable to state
+
+## 0.4.2
+
 - Comments copyWith method in SynrgState
 
 ## 0.4.1

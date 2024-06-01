@@ -23,7 +23,7 @@ class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
       value: bloc,
       child: BlocConsumer<B, Object?>(
         buildWhen: (previous, current) {
-          if (previous.toString() == current.toString()) {
+          if (previous == current) {
             return false;
           }
           return true;
