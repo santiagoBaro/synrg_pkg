@@ -62,6 +62,9 @@ class Project extends SynrgClass {
       type: type ?? this.type,
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, type];
 }
 
 //? Synrg Bloc Provider implementation

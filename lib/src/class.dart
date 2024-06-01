@@ -1,22 +1,30 @@
+import 'package:equatable/equatable.dart';
+
 ///
-abstract class SynrgClass {
+abstract class SynrgClass extends Equatable {
   ///
-  SynrgClass({this.id});
+  const SynrgClass({this.id});
 
   /// Force override from.Map constructor
   factory SynrgClass.fromMap(Map<String, dynamic> map) {
-    throw UnimplementedError();
+    throw UnimplementedError('Missing fromMap implementation');
   }
 
   /// Object identification
   final String? id;
 
   /// Mapper function, used by indexer to parse data
-  Map<String, dynamic> toMap();
+  Map<String, dynamic> toMap() {
+    throw UnimplementedError('Missing toMap implementation');
+  }
 
   /// save function, persists the changes in FireStore
-  Future<void> save();
+  Future<void> save() {
+    throw UnimplementedError('Missing save implementation');
+  }
 
   /// copy with
-  SynrgClass copyWith({String? id});
+  SynrgClass copyWith({String? id}) {
+    throw UnimplementedError('Missing copyWith implementation');
+  }
 }

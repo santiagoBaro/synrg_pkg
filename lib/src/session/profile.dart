@@ -63,7 +63,7 @@ class Location {
 ///
 abstract class SynrgProfile extends SynrgClass {
   ///
-  SynrgProfile({
+  const SynrgProfile({
     super.id = '',
     this.name = '',
     this.username = '',

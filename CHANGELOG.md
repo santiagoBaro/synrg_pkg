@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.4
+
+- Adds equatable to class
+
 ## 0.4.2
 
 - Adds equatable to state
