@@ -4,13 +4,13 @@ part of 'session_bloc.dart';
 @immutable
 abstract class SynrgSessionState extends SynrgState {
   ///
-  SynrgSessionState({super.modal});
+  const SynrgSessionState({super.modal});
 }
 
 /// Initial state is a loader while we check for the session state
 final class SynrgSessionLoadingState extends SynrgSessionState {
   ///
-  SynrgSessionLoadingState({super.modal});
+  const SynrgSessionLoadingState({super.modal});
 
   @override
   Map<String, dynamic> toMap() {
@@ -24,7 +24,7 @@ final class SynrgSessionLoadingState extends SynrgSessionState {
 ///
 final class SynrgNotAuthenticatedState extends SynrgSessionState {
   ///
-  SynrgNotAuthenticatedState({super.modal});
+  const SynrgNotAuthenticatedState({super.modal});
 
   @override
   Map<String, dynamic> toMap() {
@@ -38,7 +38,7 @@ final class SynrgNotAuthenticatedState extends SynrgSessionState {
 ///
 final class SynrgProfileViewState extends SynrgSessionState {
   ///
-  SynrgProfileViewState(this.profile, {super.modal});
+  const SynrgProfileViewState(this.profile, {super.modal});
 
   ///
   final SynrgProfile profile;
@@ -57,7 +57,7 @@ final class SynrgProfileViewState extends SynrgSessionState {
 ///
 final class SynrgProfileFormState extends SynrgSessionState {
   ///
-  SynrgProfileFormState(this.profile, {super.modal});
+  const SynrgProfileFormState(this.profile, {super.modal});
 
   ///
   final SynrgProfile? profile;
@@ -77,7 +77,7 @@ final class SynrgProfileFormState extends SynrgSessionState {
 ///
 final class SynrgLandingState extends SynrgSessionState {
   ///
-  SynrgLandingState(this.profile, {super.modal});
+  const SynrgLandingState(this.profile, {super.modal});
 
   ///
   final SynrgProfile? profile;

@@ -5,7 +5,7 @@ import 'package:synrg/src/bloc/modal.dart';
 /// It adds an alert to all states enabling seamless user feedback
 class SynrgState extends Equatable {
   ///
-  SynrgState({this.modal});
+  const SynrgState({this.modal});
 
   /// basic implementation of copy with method,
   /// if there are more attributes it should be overwritten
@@ -32,7 +32,6 @@ class SynrgState extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       throw UnimplementedError('Missing props implementation');
 }

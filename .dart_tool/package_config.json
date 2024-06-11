@@ -950,10 +950,10 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-06-01T14:54:22.712357Z",
+  "generated": "2024-06-11T02:11:13.555814Z",
   "generator": "pub",
-  "generatorVersion": "3.4.0",
+  "generatorVersion": "3.4.1",
   "flutterRoot": "file:///Users/santiagobaro/flutter",
-  "flutterVersion": "3.22.0",
+  "flutterVersion": "3.22.1",
   "pubCache": "file:///Users/santiagobaro/.pub-cache"
 }

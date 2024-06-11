@@ -7,7 +7,7 @@ abstract class SynrgClass extends Equatable {
 
   /// Force override from.Map constructor
   factory SynrgClass.fromMap(Map<String, dynamic> map) {
-    throw UnimplementedError('Missing fromMap implementation');
+    throw UnimplementedError('Missing fromMap implementation $map');
   }
 
   /// Object identification

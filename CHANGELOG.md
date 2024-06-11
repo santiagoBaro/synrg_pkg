@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.5
+
+- Adds try catch to Crashlitycs
+
 ## 0.4.4
 
 - Adds equatable to class

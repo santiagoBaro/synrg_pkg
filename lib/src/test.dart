@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:synrg/synrg.dart';
 
@@ -13,9 +14,9 @@ final response = payments.call({'id': 'random_id'});
 final projectIndex = SynrgIndexer<Project>('projects', Project.fromMap);
 
 class Project extends SynrgClass {
-  String name;
-  String type;
-  Project({
+  final String name;
+  final String type;
+  const Project({
     required this.name,
     required this.type,
     super.id,
@@ -229,7 +230,9 @@ Future<void> dummy4() async {
     fileToUpload,
   );
   if (downloadUrl != null) {
-    print('File uploaded: $downloadUrl');
+    if (kDebugMode) {
+      print('File uploaded: $downloadUrl');
+    }
   }
 
   // Download a file
@@ -238,7 +241,9 @@ Future<void> dummy4() async {
     'path/to/save/file.jpg',
   );
   if (downloadedFile != null) {
-    print('File downloaded to: ${downloadedFile.path}');
+    if (kDebugMode) {
+      print('File downloaded to: ${downloadedFile.path}');
+    }
   }
 
   // Delete a file
@@ -261,11 +266,15 @@ Future<void> dummy5() async {
   // Retrieve a string value
   final welcomeMessage =
       SynrgRemoteConfig.instance.getString('welcome_message');
-  print(welcomeMessage);
+  if (kDebugMode) {
+    print(welcomeMessage);
+  }
 
   // Retrieve a boolean value
   final featureEnabled = SynrgRemoteConfig.instance.getBool('feature_enabled');
-  print(featureEnabled ? 'Feature is enabled' : 'Feature is disabled');
+  if (kDebugMode) {
+    print(featureEnabled ? 'Feature is enabled' : 'Feature is disabled');
+  }
 }
 
 //? Synrg Analytics
@@ -293,12 +302,16 @@ Future<void> dummy7() async {
   // Read data
   final snapshot = await SynrgRealtimeDatabase.instance.readData('users/user1');
   if (snapshot != null) {
-    print(snapshot.value);
+    if (kDebugMode) {
+      print(snapshot.value);
+    }
   }
 
   // Listen to data changes
   SynrgRealtimeDatabase.instance.listenToData('users/user1', (snapshot) {
-    print('Data changed: ${snapshot.value}');
+    if (kDebugMode) {
+      print('Data changed: ${snapshot.value}');
+    }
   });
 
   // Update data

@@ -1,7 +1,4 @@
 // ignore_for_file: public_member_api_docs
-import 'package:synrg/src/theme/button.dart';
-import 'package:synrg/src/theme/colors.dart';
-import 'package:synrg/src/theme/text.dart';
 import 'package:synrg/synrg.dart';
 import 'package:toastification/toastification.dart';
 
