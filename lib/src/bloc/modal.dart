@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:synrg/src/theme/theme.dart';
 import 'package:toastification/toastification.dart';
@@ -48,7 +49,7 @@ enum SynrgModalType {
 }
 
 ///
-class SynrgModal {
+class SynrgModal extends Equatable {
   ///
   const SynrgModal({
     required this.message,
@@ -201,6 +202,9 @@ class SynrgModal {
         );
     }
   }
+
+  @override
+  List<Object?> get props => [message, actionName, action, widget, level, type];
 }
 
 ToastificationType _toToastLevel(AlertLevel level) {

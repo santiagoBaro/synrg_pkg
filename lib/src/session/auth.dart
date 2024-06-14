@@ -124,7 +124,9 @@ class SynrgAuth {
       }
       // otherwise call fireStore profile table
       _lastUpdate = DateTime.now();
-      return profileIndex!.get(user!.uid);
+      final profile = await profileIndex!.get(user!.uid);
+      _profile = profile;
+      return profile;
     } on Exception catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error,

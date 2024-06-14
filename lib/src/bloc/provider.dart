@@ -12,22 +12,19 @@ class SynrgBlocProvider<B extends BlocBase<Object?>> extends StatelessWidget {
   const SynrgBlocProvider({
     required this.bloc,
     required this.builder,
+    this.buildWhen,
     super.key,
   });
   final B bloc;
   final Widget Function(BuildContext, SynrgState) builder;
+  final bool Function(Object?, Object?)? buildWhen;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: bloc,
       child: BlocConsumer<B, Object?>(
-        buildWhen: (previous, current) {
-          if (previous == current) {
-            return false;
-          }
-          return true;
-        },
+        buildWhen: buildWhen,
         builder: (context, state) {
           final synrgState = state! as SynrgState;
           SynrgAnalytics.instance.logEvent(

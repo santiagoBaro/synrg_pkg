@@ -1,8 +1,22 @@
 # CHANGELOG
 
+## 0.4.8
+
+- Adds Equatable to Modal
+
+## 0.4.7
+
+- Fix profile local cache storage
+- Changed BlocProvider to have buildWhen as parameter
+
+## 0.4.6
+
+- Fix Crashlytics for web
+- Fix setUserId logic
+
 ## 0.4.5
 
-- Adds try catch to Crashlitycs
+- Adds try catch to Crashlytics
 
 ## 0.4.4
 

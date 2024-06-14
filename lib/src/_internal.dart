@@ -4,16 +4,16 @@ import 'package:synrg/synrg.dart';
 import 'package:uuid/uuid.dart';
 
 /// This function sets the id for all all the app monitoring services
-Future<void> setUserId(String? userId, {String? id}) async {
+Future<void> setUserId(String? userId) async {
   final deviceInfoPlugin = DeviceInfoPlugin();
   final deviceInfo = await deviceInfoPlugin.deviceInfo;
   final deviceId = await _getDeviceIdentifier(deviceInfo);
-  if (id == null) {
+  if (userId == null) {
     SynrgCrashlytics.instance.setUserIdentifier('anonymous-$deviceId');
     await SynrgAnalytics.instance.setUserId('anonymous-$deviceId');
   } else {
-    SynrgCrashlytics.instance.setUserIdentifier('$id-$deviceId');
-    await SynrgAnalytics.instance.setUserId('$id-$deviceId');
+    SynrgCrashlytics.instance.setUserIdentifier('$userId-$deviceId');
+    await SynrgAnalytics.instance.setUserId('$userId-$deviceId');
   }
 }
 

@@ -69,20 +69,20 @@ class Project extends SynrgClass {
 }
 
 //? Synrg Bloc Provider implementation
-class DummyWidget extends StatelessWidget {
-  const DummyWidget({super.key});
+// class DummyWidget extends StatelessWidget {
+//   const DummyWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return SynrgBlocProvider<SynrgSessionBloc>(
-      bloc: SynrgSessionBloc(),
-      builder: (context, state) {
-        // Your widget content based on state
-        return Container();
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SynrgBlocProvider<SynrgSessionBloc>(
+//       bloc: SynrgSessionBloc(),
+//       builder: (context, state) {
+//         // Your widget content based on state
+//         return Container();
+//       },
+//     );
+//   }
+// }
 
 //? Stateful validation implementation
 class MyCustomForm extends StatefulWidget {
