@@ -100,9 +100,9 @@ class SynrgModal extends Equatable {
                 if (action != null)
                   TextButton(
                     style: synrgTheme.button.primary,
-                    onPressed: () {
+                    onPressed: () async {
                       // ignore: avoid_dynamic_calls
-                      action!();
+                      await action!();
                       Navigator.of(context).pop();
                     },
                     child: Text(actionName ?? ''),
@@ -134,9 +134,9 @@ class SynrgModal extends Equatable {
                         ),
                         if (action != null)
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // ignore: avoid_dynamic_calls
-                              action!();
+                              await action!();
                             },
                             child: Text(actionName ?? ''),
                           ),
@@ -159,9 +159,9 @@ class SynrgModal extends Equatable {
           action: (action != null)
               ? SnackBarAction(
                   label: actionName ?? '',
-                  onPressed: () {
+                  onPressed: () async {
                     // ignore: avoid_dynamic_calls
-                    action!();
+                    await action!();
                   },
                 )
               : null,

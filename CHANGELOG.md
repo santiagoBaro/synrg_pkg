@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.9
+
+- Adds async await to modal actions
+
 ## 0.4.8
 
 - Adds Equatable to Modal
