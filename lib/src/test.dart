@@ -16,7 +16,7 @@ final projectIndex = SynrgIndexer<Project>('projects', Project.fromMap);
 class Project extends SynrgClass {
   final String name;
   final String type;
-  const Project({
+  Project({
     required this.name,
     required this.type,
     super.id,
@@ -45,7 +45,6 @@ class Project extends SynrgClass {
     await projectIndex.save(this);
   }
 
-  @override
   Project copyWith({String? id, String? name, String? type}) {
     return Project(
       id: id ?? this.id,
@@ -54,7 +53,6 @@ class Project extends SynrgClass {
     );
   }
 
-  @override
   List<Object?> get props => [id, name, type];
 }
 

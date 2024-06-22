@@ -1,9 +1,9 @@
-import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 
 ///
-abstract class SynrgClass extends Equatable {
+abstract class SynrgClass {
   ///
-  const SynrgClass({this.id, this.parent});
+  SynrgClass({this.id, this.parent});
 
   /// Force override from.Map constructor
   factory SynrgClass.fromMap(Map<String, dynamic> map) {
@@ -11,10 +11,10 @@ abstract class SynrgClass extends Equatable {
   }
 
   /// Object identification
-  final String? id;
+  String? id;
 
   /// Parent class, used for cascade save
-  final SynrgClass? parent;
+  SynrgClass? parent;
 
   /// Mapper function, used by indexer to parse data
   Map<String, dynamic> toMap() {
@@ -23,13 +23,9 @@ abstract class SynrgClass extends Equatable {
 
   /// save function, persists the changes in FireStore
   Future<void> save() async {
+    id ??= const Uuid().v4();
     if (parent != null) {
       await parent!.save();
     }
-  }
-
-  /// copy with
-  SynrgClass copyWith({String? id}) {
-    throw UnimplementedError('Missing copyWith implementation');
   }
 }

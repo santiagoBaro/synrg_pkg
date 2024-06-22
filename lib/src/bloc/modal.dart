@@ -103,7 +103,9 @@ class SynrgModal extends Equatable {
                     onPressed: () async {
                       // ignore: avoid_dynamic_calls
                       await action!();
-                      Navigator.of(context).pop();
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
                     },
                     child: Text(actionName ?? ''),
                   ),

@@ -4,7 +4,7 @@ import 'package:synrg/synrg.dart';
 ///
 class Location {
   /// Constructor for the Location class.
-  const Location({
+  Location({
     this.address = '',
     this.city = '',
     this.state = '',
@@ -24,19 +24,19 @@ class Location {
   }
 
   ///
-  final String address;
+  String address;
 
   ///
-  final String city;
+  String city;
 
   ///
-  final String state;
+  String state;
 
   ///
-  final String country;
+  String country;
 
   ///
-  final String postalCode;
+  String postalCode;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
@@ -63,7 +63,7 @@ class Location {
 ///
 abstract class SynrgProfile extends SynrgClass {
   ///
-  const SynrgProfile({
+  SynrgProfile({
     super.id = '',
     super.parent,
     this.name = '',
@@ -71,7 +71,7 @@ abstract class SynrgProfile extends SynrgClass {
     this.email = '',
     this.dateOfBirth,
     this.gender = '',
-    this.location = const Location(),
+    this.location,
     this.interests = const [],
     this.preferences = const {},
     this.purchaseHistory = const [],
@@ -81,40 +81,40 @@ abstract class SynrgProfile extends SynrgClass {
   });
 
   /// The user's name.
-  final String name;
+  String name;
 
   /// The user's username.
-  final String username;
+  String username;
 
   /// The user's email address.
-  final String email;
+  String email;
 
   /// The user's date of birth.
-  final DateTime? dateOfBirth;
+  DateTime? dateOfBirth;
 
   /// The user's gender.
-  final String gender;
+  String gender;
 
   /// The user's location.
-  final Location location;
+  Location? location;
 
   /// The user's interests.
-  final List<String> interests;
+  List<String> interests;
 
   /// The user's preferences.
-  final Map<String, dynamic> preferences;
+  Map<String, dynamic> preferences;
 
   /// The user's purchase history.
-  final List<String> purchaseHistory;
+  List<String> purchaseHistory;
 
   /// The user's activity history.
-  final List<String> activityHistory;
+  List<String> activityHistory;
 
   /// Additional arguments that may be present in the profile.
-  final List<String> additionalRequiredArguments;
+  List<String> additionalRequiredArguments;
 
   /// Has to check for location in (is_complete) flow
-  final bool isLocationRequired;
+  bool isLocationRequired;
 
   /// Checks for the user´s basic profile information
   bool isComplete() {
@@ -125,7 +125,7 @@ abstract class SynrgProfile extends SynrgClass {
         gender.isEmpty) {
       return false;
     }
-    if (isLocationRequired && location == const Location()) {
+    if (isLocationRequired && location == Location()) {
       return false;
     }
     if (additionalRequiredArguments.isNotEmpty) {
@@ -136,7 +136,7 @@ abstract class SynrgProfile extends SynrgClass {
 
   /// this method tries to get the profiles data from FirebaseAUth´s User
   void getData() {
-    // final user = SynrgAuth.instance.user;
+    //   user = SynrgAuth.instance.user;
     // if (user != null) {
     //   copyWith(
     //     name: user.displayName ?? '',

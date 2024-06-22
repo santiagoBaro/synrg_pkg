@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.0
+
+- Changed SynrgClass implementation, removed equatable and final attributes. This enables the cascade save
+
 ## 0.4.12
 
 - Adds parent to SynrgProfile constructor
