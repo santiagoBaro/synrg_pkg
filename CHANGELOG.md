@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.11
+
+- Changes SynrgClass save to default to parent.save() if not null
+
 ## 0.4.10
 
 - Adds parent to SynrgClass

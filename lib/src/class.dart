@@ -22,8 +22,10 @@ abstract class SynrgClass extends Equatable {
   }
 
   /// save function, persists the changes in FireStore
-  Future<void> save() {
-    throw UnimplementedError('Missing save implementation');
+  Future<void> save() async {
+    if (parent != null) {
+      await parent!.save();
+    }
   }
 
   /// copy with
