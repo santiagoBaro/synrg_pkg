@@ -65,6 +65,7 @@ abstract class SynrgProfile extends SynrgClass {
   ///
   const SynrgProfile({
     super.id = '',
+    super.parent,
     this.name = '',
     this.username = '',
     this.email = '',

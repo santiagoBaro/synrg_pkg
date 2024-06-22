@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.12
+
+- Adds parent to SynrgProfile constructor
+
 ## 0.4.11
 
 - Changes SynrgClass save to default to parent.save() if not null
