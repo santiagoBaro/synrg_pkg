@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 ///
 abstract class SynrgClass extends Equatable {
   ///
-  const SynrgClass({this.id});
+  const SynrgClass({this.id, this.parent});
 
   /// Force override from.Map constructor
   factory SynrgClass.fromMap(Map<String, dynamic> map) {
@@ -12,6 +12,9 @@ abstract class SynrgClass extends Equatable {
 
   /// Object identification
   final String? id;
+
+  /// Parent class, used for cascade save
+  final SynrgClass? parent;
 
   /// Mapper function, used by indexer to parse data
   Map<String, dynamic> toMap() {

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.10
+
+- Adds parent to SynrgClass
+
 ## 0.4.9
 
 - Adds async await to modal actions
