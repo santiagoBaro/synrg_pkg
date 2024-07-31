@@ -55,6 +55,10 @@ class Project extends SynrgClass {
     await projectIndex.save(this);
   }
 
+  Future<void> delete() async {
+    await projectIndex.delete(id!);
+  }
+
   Project copyWith({String? id, String? name, String? type}) {
     return Project(
       id: id ?? this.id,

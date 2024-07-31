@@ -63,6 +63,23 @@ class SynrgIndexer<T extends SynrgClass> {
     }
   }
 
+  /// Delete the document by id
+  Future<void> delete(String id) async {
+    final trace =
+        await _performance.startTrace('Indexer delete ( $_collectionName )');
+    try {
+      await _collection.doc(id).delete();
+    } catch (e, stackTrace) {
+      SynrgCrashlytics.instance.logError(
+        e as Exception,
+        stackTrace,
+        reason: 'Indexer Delete ($_collectionName) Exception',
+      );
+    } finally {
+      await SynrgPerformance.instance.stopTrace(trace);
+    }
+  }
+
   /// Batch get a list of ids
   Future<List<T>?> batchGet(List<String> ids) async {
     final trace =
