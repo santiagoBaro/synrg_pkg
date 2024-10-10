@@ -40,7 +40,7 @@ class SynrgFunction<T extends SynrgClass> {
       );
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'Function ($_name) exception',
       );

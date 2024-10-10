@@ -24,7 +24,7 @@ class SynrgRealtimeDatabase {
       await ref.set(data);
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'RealTime Database Write exception',
       );
@@ -46,7 +46,7 @@ class SynrgRealtimeDatabase {
       }
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'RealTime Database Read exception',
       );
@@ -66,7 +66,7 @@ class SynrgRealtimeDatabase {
       onError: (Object e, StackTrace s) {
         // Specify types for e and s
         SynrgCrashlytics.instance.logError(
-          e as Exception,
+          e as Error,
           s,
           reason: 'RealTime Database Update exception',
         );
@@ -82,7 +82,7 @@ class SynrgRealtimeDatabase {
       await ref.update(data);
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'RealTime Database Update exception',
       );
@@ -99,7 +99,7 @@ class SynrgRealtimeDatabase {
       await ref.remove();
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'RealTime Database Delete exception',
       );

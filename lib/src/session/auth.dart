@@ -59,9 +59,9 @@ class SynrgAuth {
       final tokenResult = await user!.getIdTokenResult();
       accessToken = tokenResult.token;
       await setUserId(user!.uid);
-    } on Exception catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        error,
+        error as Error,
         stackTrace,
         reason: 'Auth Sign In Exception',
       );
@@ -81,9 +81,9 @@ class SynrgAuth {
       user = userCredential.user;
       userId = user!.uid;
       await setUserId(user!.uid);
-    } on Exception catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        error,
+        error as Error,
         stackTrace,
         reason: 'Auth Register Exception',
       );
@@ -100,9 +100,9 @@ class SynrgAuth {
       user = null;
       userId = null;
       await setUserId(null);
-    } on Exception catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        error,
+        error as Error,
         stackTrace,
         reason: 'Auth Sing Out Exception',
       );
@@ -127,9 +127,9 @@ class SynrgAuth {
       final profile = await profileIndex!.get(user!.uid);
       _profile = profile;
       return profile;
-    } on Exception catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        error,
+        error as Error,
         stackTrace,
         reason: 'Auth Profile Exception',
       );

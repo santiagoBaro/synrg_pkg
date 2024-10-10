@@ -171,7 +171,7 @@ void dummy2() {
     // Your code that might throw an exception
   } catch (e, stackTrace) {
     SynrgCrashlytics.instance.logError(
-      e as Exception,
+      e as Error,
       stackTrace,
       reason: 'Uncaught exception',
     );

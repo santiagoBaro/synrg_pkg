@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.2
+
+- Add multiQuery to Indexer
+
 ## 0.5.1
 
 - Added Indexer delete method

@@ -28,7 +28,7 @@ class SynrgRemoteConfig {
       await _remoteConfig.fetchAndActivate();
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'Remote Config Fetch and Activate Exception',
       );

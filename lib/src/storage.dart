@@ -35,7 +35,7 @@ class SynrgStorage {
       return downloadUrl;
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'Synrg Storage Upload File Exception',
       );
@@ -59,7 +59,7 @@ class SynrgStorage {
       return file;
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'Synrg Storage Download File Exception',
       );
@@ -80,7 +80,7 @@ class SynrgStorage {
       await ref.delete();
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
-        e as Exception,
+        e as Error,
         stackTrace,
         reason: 'Synrg Storage Delete File Exception',
       );

@@ -23,11 +23,11 @@ class SynrgCrashlytics {
   }
 
   /// Logs a custom error message
-  void logError(Exception exception, StackTrace stackTrace, {String? reason}) {
+  void logError(Error exception, StackTrace stackTrace, {String? reason}) {
     if (!kIsWeb) {
       try {
         _crashlytics.recordError(exception, stackTrace, reason: reason);
-      } on Exception catch (e) {
+      } catch (e) {
         if (kDebugMode) {
           print('Error logging error: $e');
         }
@@ -44,7 +44,7 @@ class SynrgCrashlytics {
     if (!kIsWeb) {
       try {
         _crashlytics.setCustomKey(key, value);
-      } on Exception catch (e) {
+      } catch (e) {
         if (kDebugMode) {
           print('Error setting custom key: $e');
         }
@@ -58,7 +58,7 @@ class SynrgCrashlytics {
     if (!kIsWeb) {
       try {
         _crashlytics.setUserIdentifier(identifier);
-      } on Exception catch (e) {
+      } catch (e) {
         if (kDebugMode) {
           print('Error setting user identifier: $e');
         }
@@ -71,7 +71,7 @@ class SynrgCrashlytics {
     if (!kIsWeb) {
       try {
         _crashlytics.log(message);
-      } on Exception catch (e) {
+      } catch (e) {
         if (kDebugMode) {
           print('Error logging message: $e');
         }
@@ -84,7 +84,7 @@ class SynrgCrashlytics {
     if (!kIsWeb) {
       try {
         _crashlytics.setCrashlyticsCollectionEnabled(enabled);
-      } on Exception catch (e) {
+      } catch (e) {
         if (kDebugMode) {
           print('Error setting Crashlytics collection: $e');
         }
@@ -102,7 +102,7 @@ class SynrgCrashlytics {
         } else {
           _crashlytics.setCustomKey(key, value as Object);
         }
-      } on Exception catch (e) {
+      } catch (e) {
         if (kDebugMode) {
           print('Error setting custom key: $e');
         }
