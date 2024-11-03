@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.3
+
+- Refactor SynrgAuth class to improve profile handling
+
 ## 0.5.2
 
 - Add multiQuery to Indexer
