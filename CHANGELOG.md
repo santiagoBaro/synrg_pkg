@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.4
+
+- Adds QueryList
+
 ## 0.5.3
 
 - Refactor SynrgAuth class to improve profile handling
