@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.5
+
+- reverted changes from 0.5.3
+
 ## 0.5.4
 
 - Adds QueryList

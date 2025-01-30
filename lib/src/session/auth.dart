@@ -41,7 +41,7 @@ class SynrgAuth {
   void init() {
     user = _auth.currentUser;
     if (user != null) {
-      userId = user!.uid;
+      userId = user?.uid;
     }
     setUserId(null);
   }
@@ -55,10 +55,10 @@ class SynrgAuth {
         password: password,
       );
       user = userCredential.user;
-      userId = user!.uid;
-      final tokenResult = await user!.getIdTokenResult();
-      accessToken = tokenResult.token;
-      await setUserId(user!.uid);
+      userId = user?.uid;
+      final tokenResult = await user?.getIdTokenResult();
+      accessToken = tokenResult?.token;
+      await setUserId(user?.uid);
     } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error as Error,
@@ -79,8 +79,8 @@ class SynrgAuth {
         password: password,
       );
       user = userCredential.user;
-      userId = user!.uid;
-      await setUserId(user!.uid);
+      userId = user?.uid;
+      await setUserId(user?.uid);
     } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error as Error,
@@ -116,7 +116,7 @@ class SynrgAuth {
     final trace = await _performance.startTrace('profile');
     // if the profile is still fresh return without making a backend request
     try {
-      if (_profile != null && _profile!.id == user!.uid) {
+      if (_profile != null && _profile!.id == user?.uid) {
         final currentTime = DateTime.now();
         if (currentTime.difference(_lastUpdate).inMinutes < 1) {
           return _profile;
@@ -124,7 +124,7 @@ class SynrgAuth {
       }
       // otherwise call fireStore profile table
       _lastUpdate = DateTime.now();
-      final profile = await profileIndex!.get(user!.uid);
+      final profile = await profileIndex!.get(user?.uid ?? '');
       _profile = profile;
       return profile;
     } catch (error, stackTrace) {
