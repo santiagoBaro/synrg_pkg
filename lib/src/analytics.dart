@@ -18,6 +18,7 @@ class SynrgAnalytics {
     String eventName, [
     Map<String, dynamic>? parameters,
   ]) async {
+    parameters?.removeWhere((key, value) => value == null);
     await _analytics.logEvent(
       name: eventName,
       parameters: parameters,
@@ -45,6 +46,7 @@ class SynrgAnalytics {
     String screenClass = 'Flutter',
     Map<String, Object?>? parameters,
   }) async {
+    parameters?.removeWhere((key, value) => value == null);
     await _analytics.logScreenView(
       screenName: screenName,
       screenClass: screenClass,

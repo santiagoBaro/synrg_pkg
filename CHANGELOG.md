@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.6
+
+- changed user ! to ? in auth implementation
+
 ## 0.5.5
 
 - reverted changes from 0.5.3
