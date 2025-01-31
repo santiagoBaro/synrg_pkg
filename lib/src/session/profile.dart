@@ -15,28 +15,28 @@ class Location {
   /// Converts a map to a Location object.
   factory Location.fromMap(Map<String, dynamic> map) {
     return Location(
-      address: map['address'] as String,
-      city: map['city'] as String,
-      state: map['state'] as String,
-      country: map['country'] as String,
-      postalCode: map['postalCode'] as String,
+      address: map['address'] as String?,
+      city: map['city'] as String?,
+      state: map['state'] as String?,
+      country: map['country'] as String?,
+      postalCode: map['postalCode'] as String?,
     );
   }
 
   ///
-  String address;
+  String? address;
 
   ///
-  String city;
+  String? city;
 
   ///
-  String state;
+  String? state;
 
   ///
-  String country;
+  String? country;
 
   ///
-  String postalCode;
+  String? postalCode;
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes

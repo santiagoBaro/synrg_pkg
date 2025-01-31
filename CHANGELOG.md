@@ -3,6 +3,9 @@
 ## 0.5.6
 
 - changed user ! to ? in auth implementation
+- analytics null check
+- added 0.5.3 back
+- added environment check to performance
 
 ## 0.5.5
 

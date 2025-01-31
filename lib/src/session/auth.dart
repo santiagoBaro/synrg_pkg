@@ -10,12 +10,9 @@ class SynrgAuth {
   static late final SynrgAuth _instance;
 
   /// Provides a global access point to the SynrgAuth instance
-  /// Assumes `isInTestMode` is a global or context-specific flag
-  /// determining the environment.
   static SynrgAuth get instance => _instance;
 
   /// Method to initialize the SynrgAuth singleton with a profileIndex.
-  /// This should be called before accessing SynrgAuth.instance.
   static void initialize(SynrgIndexer<SynrgProfile>? profileIndex) {
     _instance =
         SynrgAuth._privateConstructor(FirebaseAuth.instance, profileIndex);
@@ -28,8 +25,9 @@ class SynrgAuth {
 
   ///
   User? user;
-  SynrgProfile? _profile;
-  DateTime _lastUpdate = DateTime.now();
+
+  /// Current user profile
+  SynrgProfile? profile;
 
   /// current user id
   String? userId;
@@ -42,8 +40,10 @@ class SynrgAuth {
     user = _auth.currentUser;
     if (user != null) {
       userId = user?.uid;
+      setUserId(userId);
+    } else {
+      setUserId(null);
     }
-    setUserId(null);
   }
 
   /// User sign in with email and password
@@ -58,7 +58,10 @@ class SynrgAuth {
       userId = user?.uid;
       final tokenResult = await user?.getIdTokenResult();
       accessToken = tokenResult?.token;
+
+      // Refresh profile after login
       await setUserId(user?.uid);
+      await refreshProfile();
     } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error as Error,
@@ -80,7 +83,10 @@ class SynrgAuth {
       );
       user = userCredential.user;
       userId = user?.uid;
+
+      // Refresh profile after registration
       await setUserId(user?.uid);
+      await refreshProfile();
     } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error as Error,
@@ -99,41 +105,34 @@ class SynrgAuth {
       await _auth.signOut();
       user = null;
       userId = null;
+
+      // Clear profile on logout
+      profile = null;
       await setUserId(null);
     } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error as Error,
         stackTrace,
-        reason: 'Auth Sing Out Exception',
+        reason: 'Auth Sign Out Exception',
       );
     } finally {
       await _performance.stopTrace(trace);
     }
   }
 
-  /// Get the current user´s profile
-  Future<SynrgProfile?> profile() async {
-    final trace = await _performance.startTrace('profile');
-    // if the profile is still fresh return without making a backend request
+  /// Refresh the current user´s profile
+  Future<void> refreshProfile() async {
+    final trace = await _performance.startTrace('Refresh Profile');
     try {
-      if (_profile != null && _profile!.id == user?.uid) {
-        final currentTime = DateTime.now();
-        if (currentTime.difference(_lastUpdate).inMinutes < 1) {
-          return _profile;
-        }
+      if (user != null) {
+        profile = await profileIndex!.get(user?.uid ?? '');
       }
-      // otherwise call fireStore profile table
-      _lastUpdate = DateTime.now();
-      final profile = await profileIndex!.get(user?.uid ?? '');
-      _profile = profile;
-      return profile;
     } catch (error, stackTrace) {
       SynrgCrashlytics.instance.logError(
         error as Error,
         stackTrace,
-        reason: 'Auth Profile Exception',
+        reason: 'Auth Refresh Profile Exception',
       );
-      return null;
     } finally {
       await _performance.stopTrace(trace);
     }

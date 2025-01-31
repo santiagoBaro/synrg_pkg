@@ -15,7 +15,7 @@ class SynrgSessionBloc extends Bloc<SynrgSessionEvent, SynrgSessionState> {
       if (auth.user == null) {
         emit(const SynrgNotAuthenticatedState());
       } else {
-        final profile = await auth.profile();
+        final profile = auth.profile;
         if (profile == null || !profile.isComplete()) {
           emit(SynrgProfileFormState(profile));
         } else {
@@ -40,7 +40,7 @@ class SynrgSessionBloc extends Bloc<SynrgSessionEvent, SynrgSessionState> {
           return;
         }
         try {
-          profile = await auth.profile();
+          profile = auth.profile;
           if (profile!.isComplete()) {
             emit(SynrgLandingState(profile));
           } else {
