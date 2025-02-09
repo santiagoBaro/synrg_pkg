@@ -18,7 +18,24 @@ class SynrgAnalytics {
     String eventName, [
     Map<String, dynamic>? parameters,
   ]) async {
-    parameters?.removeWhere((key, value) => value == null);
+    if (parameters != null) {
+      parameters.removeWhere((key, value) => value == null);
+
+      parameters = parameters.map((key, value) {
+        if (value is String || value is num || value == null) {
+          return MapEntry(key, value);
+        } else if (value is DateTime) {
+          return MapEntry(key, value.toIso8601String());
+        } else if (value is List) {
+          return MapEntry(key, value.join(','));
+        } else if (value is Map) {
+          return MapEntry(key, value.toString());
+        } else {
+          return MapEntry(key, value.toString());
+        }
+      });
+    }
+
     await _analytics.logEvent(
       name: eventName,
       parameters: parameters,
