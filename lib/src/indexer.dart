@@ -163,7 +163,7 @@ class SynrgIndexer<T extends SynrgClass> {
     List<dynamic>? whereNotIn,
     bool? isNull,
     int limit = 10,
-    DocumentSnapshot? startAfter,
+    String? startAfter,
   }) async {
     final trace =
         await _performance.startTrace('Indexer query ( $_collectionName )');
@@ -186,7 +186,9 @@ class SynrgIndexer<T extends SynrgClass> {
           .limit(limit);
 
       if (startAfter != null) {
-        query = query.startAfterDocument(startAfter);
+        // TODO: fix startAfter
+        final doc = await _collection.doc(startAfter).get();
+        query = query.startAfterDocument(doc);
       }
 
       final querySnapshot = await query.get();
@@ -217,7 +219,7 @@ class SynrgIndexer<T extends SynrgClass> {
   Future<List<T>?> multiQuery(
     List<Query> queries, {
     int limit = 10,
-    DocumentSnapshot? startAfter,
+    String? startAfter,
   }) async {
     final trace = await _performance
         .startTrace('Indexer multiQuery ( $_collectionName )');
@@ -239,11 +241,11 @@ class SynrgIndexer<T extends SynrgClass> {
           isNull: q.isNull,
         );
       }
-
       if (startAfter != null) {
-        queryObj = queryObj.startAfterDocument(startAfter);
+        // TODO: fix startAfter
+        final doc = await _collection.doc(startAfter).get();
+        queryObj = queryObj.startAfterDocument(doc);
       }
-
       final querySnapshot = await queryObj.get();
 
       final filteredData = <T>[];

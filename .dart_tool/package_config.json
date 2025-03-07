@@ -422,12 +422,6 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "flutter_localizations",
-      "rootUri": "file:///Users/santiagobaro/flutter/packages/flutter_localizations",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
-    },
-    {
       "name": "flutter_test",
       "rootUri": "file:///Users/santiagobaro/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -501,9 +495,9 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/intl-0.19.0",
+      "rootUri": "file:///Users/santiagobaro/.pub-cache/hosted/pub.dev/intl-0.20.2",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "io",
@@ -968,10 +962,10 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2025-02-04T17:56:05.602366Z",
+  "generated": "2025-02-21T16:37:12.383725Z",
   "generator": "pub",
-  "generatorVersion": "3.6.1",
+  "generatorVersion": "3.6.2",
   "flutterRoot": "file:///Users/santiagobaro/flutter",
-  "flutterVersion": "3.27.3",
+  "flutterVersion": "3.27.4",
   "pubCache": "file:///Users/santiagobaro/.pub-cache"
 }

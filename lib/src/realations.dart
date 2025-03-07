@@ -12,7 +12,7 @@ class Profile extends SynrgClass {
     attrs: ['id', 'name', 'type'],
   );
 
-  static Profile fromMap(Map<String, Object> map) {
+  static Profile fromMap(Map<String, dynamic> map) {
     return Profile()
       ..name = map['name'] as String
       ..project = FK<Project>(
@@ -23,6 +23,8 @@ class Profile extends SynrgClass {
       );
   }
 }
+
+final profileIndex = SynrgIndexer<Profile>('profiles', Profile.fromMap);
 
 final Profile profile = Profile.fromMap({
   'name': 'John Doe',
@@ -56,14 +58,14 @@ var nels = foreignKeyList.instances[0].name;
 final fkQuery = FKQ<Project>(
   fromMap: Project.fromMap,
   indexer: projectIndex,
+  attrs: ['id', 'name'],
   queries: [
     Query('type', isEqualTo: 'software'),
   ],
-  page: 5,
-  cachedAttributes: ['id', 'name'],
 );
 
 final results = fkQuery.fetch().then((value) => value![0].instance.name);
+final results2 = fkQuery.instances.length;
 
 /// Foreign key class
 /// This is used to represent a foreign key in a database
@@ -183,14 +185,17 @@ class FKQ<T extends SynrgClass> {
     required this.indexer,
     required this.queries,
     this.page = 10,
-    this.cachedAttributes = const ['id'],
+    this.attrs = const ['id'],
   });
 
   final T Function(Map<String, dynamic>) fromMap;
-  final List<String> cachedAttributes;
+  final List<String> attrs;
   final SynrgIndexer<T> indexer;
   final List<Query> queries;
   final int page;
+
+  /// Internal list of foreign key instances
+  final List<FK<T>> _instances = [];
 
   /// Fetches the query results using `multiQuery`
   Future<List<FK<T>>?> fetch() async {
@@ -198,21 +203,184 @@ class FKQ<T extends SynrgClass> {
 
     if (result == null) return null;
 
-    return result.map((data) {
-      return FK<T>(
-        fromMap: fromMap,
-        indexer: indexer,
-        data: _filterCachedAttributes(data.toMap()),
-        attrs: cachedAttributes,
+    _instances
+      ..clear() // Clear previous instances
+      ..addAll(
+        result.map((data) {
+          return FK<T>(
+            fromMap: fromMap,
+            indexer: indexer,
+            data: _filterCachedAttributes(data.toMap()),
+            attrs: attrs,
+          );
+        }),
       );
-    }).toList();
+
+    return List.unmodifiable(_instances); // Return a copy of the instances
   }
 
   /// Filters the attributes to only include the ones in `cachedAttributes`
   Map<String, dynamic> _filterCachedAttributes(Map<String, dynamic> fullData) {
     return {
-      for (final key in cachedAttributes)
+      for (final key in attrs)
         if (fullData.containsKey(key)) key: fullData[key],
     };
+  }
+
+  /// Get all FK instances
+  List<FK<T>> get instances => List.unmodifiable(_instances);
+}
+
+enum ModelType {
+  typeModel,
+  typeIndex,
+  typeEnum,
+  typeConst,
+  typeSecret;
+
+  static ModelType read(String type) {
+    switch (type.toLowerCase()) {
+      case 'typemodel':
+        return ModelType.typeModel;
+      case 'typeindexablemodel':
+        return ModelType.typeModel;
+      case 'typeindex':
+        return ModelType.typeIndex;
+      case 'typeenum':
+        return ModelType.typeEnum;
+      case 'typeconst':
+        return ModelType.typeConst;
+      case 'typesecret':
+        return ModelType.typeSecret;
+      default:
+        throw ArgumentError('Invalid model type: $type');
+    }
+  }
+}
+
+extension ModelTypeExtension on ModelType {
+  String get displayName {
+    return name.replaceFirst('type', '');
+  }
+}
+
+class RelationTest extends SynrgClass {
+  RelationTest({
+    required this.status,
+    required this.name,
+    required this.profile,
+    required this.projects,
+    required this.friends,
+    List<String> projectIds = const [],
+  }) : _projectIds = projectIds;
+
+  ModelType status;
+  String name;
+  // FK<Profile> profile;
+  Profile profile;
+  // FKL<Project> projects;
+  List<Project> projects;
+  // FQL<Profile> friends;
+  List<Profile> friends;
+  final List<String> _projectIds;
+
+  static RelationTest fromMap(Map<String, Object> map) {
+    return RelationTest(
+      status: ModelType.read(map['status'] as String? ?? ''),
+      name: map['name'] as String? ?? '',
+      profile: Profile.fromMap(map['profile']! as Map<String, dynamic>),
+      projects: map['projects'] == null
+          ? []
+          : (map['projects']! as List<Object>)
+              .map((e) => Project.fromMap(e as Map<String, Object>))
+              .toList(),
+      projectIds: (map['projectIds'] as List<String>?) ?? [],
+      friends: map.containsKey('friends')
+          ? (map['friends']! as List<Object>)
+              .map((e) => Profile.fromMap(e as Map<String, Object>))
+              .toList()
+          : [],
+    );
+  }
+
+  Map<String, Object> toMap() {
+    final projectAttrs = ['id', 'name'];
+    final profileAttrs = ['id', 'name'];
+    final friendAttrs = ['id', 'name'];
+    return {
+      'status': status.name,
+      'name': name,
+      'profile': Map.fromEntries(profile
+          .toMap()
+          .entries
+          .where((entry) => profileAttrs.contains(entry.key))),
+      'projects': projects
+          .sublist(0, 10)
+          .map(
+            (e) => e
+                .toMap()
+                .entries
+                .where((entry) => projectAttrs.contains(entry.key)),
+          )
+          .toList(),
+      'projectIds': _projectIds,
+      'friends': friends
+          .sublist(0, 10)
+          .map(
+            (e) => e
+                .toMap()
+                .entries
+                .where((entry) => friendAttrs.contains(entry.key)),
+          )
+          .toList(),
+    };
+  }
+
+  // related to FK<Profile> profile;
+  Future<Profile> getProfile() async {
+    return profile = await profileIndex.get(profile.id!) ?? profile;
+  }
+
+  // related to FKL<Project> projects;
+  Future<List<Project>?> getProjects() async {
+    return projects = await projectIndex.batchGet(
+          _projectIds.sublist(0, 10),
+        ) ??
+        [];
+  }
+
+  // related to FKL<Project> projects;
+  Future<List<Project>?> nextProjects() async {
+    if (_projectIds.length > projects.length) {
+      final newProjects = await projectIndex.batchGet(_projectIds.sublist(
+        projects.length,
+        projects.length + 10,
+      ));
+      if (newProjects == null) return null;
+      projects.addAll(newProjects);
+      return newProjects;
+    }
+    return null;
+  }
+
+  // related to FQL<Profile> friends;
+  Future<List<Profile>?> getFriends() async {
+    return friends = await profileIndex.multiQuery([
+          Query('id', isNotEqualTo: profile.id),
+        ]) ??
+        [];
+  }
+
+  // related to FQL<Profile> friends;
+  Future<List<Profile>?> nextFriends() async {
+    final newFriends = await profileIndex.multiQuery(
+      [
+        Query('id', isNotEqualTo: profile.id),
+      ],
+      startAfter: friends.last.id,
+    );
+    if (newFriends == null) return null;
+    friends.addAll(newFriends);
+    return newFriends;
   }
 }
