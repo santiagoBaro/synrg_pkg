@@ -1,8 +1,5 @@
-import 'dart:nativewrappers/_internal/vm/lib/mirrors_patch.dart';
-
 import 'package:synrg/src/example.dart';
 import 'package:synrg/synrg.dart';
-import 'package:uuid/uuid.dart';
 
 class Profile extends SynrgClass {
   late final String name;

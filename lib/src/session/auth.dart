@@ -13,13 +13,13 @@ class SynrgAuth {
   static SynrgAuth get instance => _instance;
 
   /// Method to initialize the SynrgAuth singleton with a profileIndex.
-  static void initialize(SynrgIndexer<SynrgProfile>? profileIndex) {
+  static void initialize(SynrgIndexer? profileIndex) {
     _instance =
         SynrgAuth._privateConstructor(FirebaseAuth.instance, profileIndex);
   }
 
   /// Indexer where profile data is stored
-  SynrgIndexer<SynrgProfile>? profileIndex;
+  SynrgIndexer? profileIndex;
   final _performance = SynrgPerformance.instance;
   final FirebaseAuth _auth;
 
@@ -27,7 +27,7 @@ class SynrgAuth {
   User? user;
 
   /// Current user profile
-  SynrgProfile? profile;
+  SynrgClass? profile;
 
   /// current user id
   String? userId;

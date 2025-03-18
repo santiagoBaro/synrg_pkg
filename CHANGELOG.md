@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.5.7
+
+- Deprecate SynrgProfile implementation
+- upd auth to use SynrgClass instead
+
 ## 0.5.6
 
 - changed user ! to ? in auth implementation

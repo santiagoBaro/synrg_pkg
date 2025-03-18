@@ -16,11 +16,11 @@ class SynrgSessionBloc extends Bloc<SynrgSessionEvent, SynrgSessionState> {
         emit(const SynrgNotAuthenticatedState());
       } else {
         final profile = auth.profile;
-        if (profile == null || !profile.isComplete()) {
-          emit(SynrgProfileFormState(profile));
-        } else {
-          emit(SynrgLandingState(profile));
-        }
+        // if (profile == null || !profile.isComplete()) {
+        //   emit(SynrgProfileFormState(profile));
+        // } else {
+        //   emit(SynrgLandingState(profile));
+        // }
       }
     });
     on<SynrgLogin>((event, emit) async {
@@ -39,16 +39,16 @@ class SynrgSessionBloc extends Bloc<SynrgSessionEvent, SynrgSessionState> {
           );
           return;
         }
-        try {
-          profile = auth.profile;
-          if (profile!.isComplete()) {
-            emit(SynrgLandingState(profile));
-          } else {
-            emit(SynrgProfileFormState(profile));
-          }
-        } catch (error) {
-          emit(const SynrgProfileFormState(null));
-        }
+        // try {
+        //   profile = auth.profile;
+        //   if (profile!.isComplete()) {
+        //     emit(SynrgLandingState(profile));
+        //   } else {
+        //     emit(SynrgProfileFormState(profile));
+        //   }
+        // } catch (error) {
+        //   emit(const SynrgProfileFormState(null));
+        // }
       } catch (error) {
         emit(
           SynrgNotAuthenticatedState(
