@@ -50,4 +50,26 @@ class SynrgButtonTheme {
   ButtonStyle confirm;
   ButtonStyle info;
   ButtonStyle disabled;
+
+  SynrgButtonTheme copyWith({
+    ButtonStyle? primary,
+    ButtonStyle? secondary,
+    ButtonStyle? success,
+    ButtonStyle? error,
+    ButtonStyle? warning,
+    ButtonStyle? confirm,
+    ButtonStyle? info,
+    ButtonStyle? disabled,
+  }) {
+    return SynrgButtonTheme(
+      primary: primary ?? this.primary,
+      secondary: secondary ?? this.secondary,
+      success: success ?? this.success,
+      error: error ?? this.error,
+      warning: warning ?? this.warning,
+      confirm: confirm ?? this.confirm,
+      info: info ?? this.info,
+      disabled: disabled ?? this.disabled,
+    );
+  }
 }

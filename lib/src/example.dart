@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:synrg/src/realations.dart';
 import 'package:synrg/synrg.dart';
 
 //?
@@ -427,7 +425,7 @@ Future<void> dummy7() async {
 //     if (remaining > 0) {
 //       final start = projects.length;
 //       final end =
-//           (_projectIds.length < start + 10) ? _projectIds.length : start + 10;
+//          (_projectIds.length < start + 10) ? _projectIds.length : start + 10;
 
 //       final newProjects = await projectIndex.batchGet(
 //         _projectIds.sublist(start, end),

@@ -104,4 +104,24 @@ class SynrgTextTheme {
   TextStyle highlight;
   TextStyle link;
   TextStyle button;
+
+  SynrgTextTheme copyWith({
+    TextStyle? title,
+    TextStyle? subtitle,
+    TextStyle? body,
+    TextStyle? placeholder,
+    TextStyle? highlight,
+    TextStyle? link,
+    TextStyle? button,
+  }) {
+    return SynrgTextTheme(
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      body: body ?? this.body,
+      placeholder: placeholder ?? this.placeholder,
+      highlight: highlight ?? this.highlight,
+      link: link ?? this.link,
+      button: button ?? this.button,
+    );
+  }
 }

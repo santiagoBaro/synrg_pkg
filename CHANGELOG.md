@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.1
+
+- added copyWith to theme
+
 ## 0.6.0
 
 - removed multiQuery

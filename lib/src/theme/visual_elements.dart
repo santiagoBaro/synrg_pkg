@@ -14,4 +14,18 @@ class VisualElements {
   BoxDecoration primary;
   BoxDecoration secondary;
   BoxDecoration tertiary;
+
+  VisualElements copyWith({
+    BoxDecoration? card,
+    BoxDecoration? primary,
+    BoxDecoration? secondary,
+    BoxDecoration? tertiary,
+  }) {
+    return VisualElements(
+      card: card ?? this.card,
+      primary: primary ?? this.primary,
+      secondary: secondary ?? this.secondary,
+      tertiary: tertiary ?? this.tertiary,
+    );
+  }
 }

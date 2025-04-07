@@ -30,6 +30,22 @@ class SynrgTheme {
   final SynrgButtonTheme button;
   final VisualElements visualElements;
   final ToastificationStyle toastStyle;
+
+  SynrgTheme copyWith({
+    SynrgColors? colors,
+    SynrgTextTheme? text,
+    SynrgButtonTheme? button,
+    ToastificationStyle? toastStyle,
+    VisualElements? visualElements,
+  }) {
+    return SynrgTheme(
+      colors: colors ?? this.colors,
+      text: text ?? this.text,
+      button: button ?? this.button,
+      toastStyle: toastStyle ?? this.toastStyle,
+      visualElements: visualElements ?? this.visualElements,
+    );
+  }
 }
 
 final baseButtonStyle = SynrgButtonTheme(

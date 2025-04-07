@@ -256,13 +256,17 @@ enum ModelType {
   }
 }
 
+///
 extension ModelTypeExtension on ModelType {
+  ///
   String get displayName {
     return name.replaceFirst('type', '');
   }
 }
 
+///
 class RelationTest extends SynrgClass {
+  ///
   RelationTest({
     required this.status,
     required this.name,
@@ -272,17 +276,7 @@ class RelationTest extends SynrgClass {
     List<String> projectIds = const [],
   }) : _projectIds = projectIds;
 
-  ModelType status;
-  String name;
-  // FK<Profile> profile;
-  Profile profile;
-  // FKL<Project> projects;
-  List<Project> projects;
-  // FQL<Profile> friends;
-  List<Profile> friends;
-  DocumentSnapshot? friendsStartAfter;
-  final List<String> _projectIds;
-
+  ///
   static RelationTest fromMap(Map<String, Object> map) {
     return RelationTest(
       status: ModelType.read(map['status'] as String? ?? ''),
@@ -302,6 +296,26 @@ class RelationTest extends SynrgClass {
     );
   }
 
+  ///
+  ModelType status;
+
+  ///
+  String name;
+
+  /// FK<Profile> profile;
+  Profile profile;
+
+  /// FKL<Project> projects;
+  List<Project> projects;
+
+  /// FQL<Profile> friends;
+  List<Profile> friends;
+
+  ///
+  DocumentSnapshot? friendsStartAfter;
+  final List<String> _projectIds;
+
+  @override
   Map<String, Object> toMap() {
     final projectAttrs = ['id', 'name'];
     final profileAttrs = ['id', 'name'];
@@ -335,12 +349,12 @@ class RelationTest extends SynrgClass {
     };
   }
 
-  // related to FK<Profile> profile;
+  /// related to FK<Profile> profile;
   Future<Profile> getProfile() async {
     return profile = await profileIndex.get(profile.id!) ?? profile;
   }
 
-  // related to FKL<Project> projects;
+  /// related to FKL<Project> projects;
   Future<List<Project>?> getProjects() async {
     return projects = await projectIndex.batchGet(
           _projectIds.sublist(0, 10),
@@ -348,7 +362,7 @@ class RelationTest extends SynrgClass {
         [];
   }
 
-  // related to FKL<Project> projects;
+  /// related to FKL<Project> projects;
   Future<List<Project>?> nextProjects() async {
     if (_projectIds.length > projects.length) {
       final newProjects = await projectIndex.batchGet(
@@ -364,7 +378,7 @@ class RelationTest extends SynrgClass {
     return null;
   }
 
-  // related to FQL<Profile> friends;
+  /// related to FQL<Profile> friends;
   Future<List<Profile>?> getFriends() async {
     final friendsData = await profileIndex.query([
       QueryFilter('id', isNotEqualTo: profile.id),
@@ -375,7 +389,7 @@ class RelationTest extends SynrgClass {
     return friendsData.data;
   }
 
-  // related to FQL<Profile> friends;
+  /// related to FQL<Profile> friends;
   Future<List<Profile>?> nextFriends() async {
     final friendsData = await profileIndex.query(
       [
