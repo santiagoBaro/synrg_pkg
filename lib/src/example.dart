@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:synrg/src/realations.dart';
 import 'package:synrg/synrg.dart';
 
 //?
@@ -18,10 +20,8 @@ final projectList = projectIndex.batchGet([
   'project-id-2',
   'project-id-3',
 ]);
-final projectQuery = projectIndex.query(
-  field: 'type',
-  isEqualTo: 'Ongoing',
-);
+final projectQuery =
+    projectIndex.query([QueryFilter('type', isEqualTo: 'Ongoing')]);
 
 class Project extends SynrgClass {
   final String name;
@@ -308,3 +308,161 @@ Future<void> dummy7() async {
   // Delete data
   await SynrgRealtimeDatabase.instance.deleteData('users/user1');
 }
+
+// import 'package:app/models/models.dart';
+// import 'package:synrg/synrg.dart';
+
+// class RelationTest extends SynrgClass {
+//   RelationTest({
+//     required this.status,
+//     required this.name,
+//     required this.profile,
+//     required this.projects,
+//     required this.friends,
+//     super.id,
+//     List<String> projectIds = const [],
+//     String profileId = '',
+//   })  : _projectIds = projectIds,
+//         _profileId = profileId;
+
+//   // ModelType is an typeEnum
+//   ModelType status;
+//   String name;
+//   // FK<Profile> profile;
+//   String _profileId;
+//   Profile profile;
+//   // FKL<Project> projects;
+//   final List<String> _projectIds;
+//   List<Project> projects;
+//   // FQL<Profile> friends;
+//   List<Profile> friends;
+//   DocumentSnapshot? _friendsLast;
+
+//   static RelationTest fromMap(Map<String, dynamic> map) {
+//     return RelationTest(
+//       status: ModelType.read(map['status'] as String? ?? ''),
+//       name: map['name'] as String? ?? '',
+//       profile: Profile.fromMap(map['profile']! as Map<String, dynamic>),
+//       profileId: map['profileId'] as String? ?? '',
+//       projects: map['projects'] == null
+//           ? []
+//           : (map['projects']! as List<dynamic>)
+//               .map((e) => Project.fromMap(e as Map<String, dynamic>))
+//               .toList(),
+//       projectIds: (map['projectIds'] as List<String>?) ?? [],
+//       friends: map.containsKey('friends')
+//           ? (map['friends']! as List<dynamic>)
+//               .map((e) => Profile.fromMap(e as Map<String, dynamic>))
+//               .toList()
+//           : [],
+//     );
+//   }
+
+//   Map<String, dynamic> toMap() {
+//     final projectAttrs = ['id', 'name'];
+//     final profileAttrs = ['id', 'name'];
+//     final friendAttrs = ['id', 'name'];
+//     return {
+//       'status': status.name,
+//       'name': name,
+//       'profileId': _profileId,
+//       'profile': Map.fromEntries(profile
+//           .toMap()
+//           .entries
+//           .where((entry) => profileAttrs.contains(entry.key))),
+//       'projects': projects.isEmpty
+//           ? []
+//           : projects
+//               .sublist(0, projects.length < 10 ? projects.length : 10)
+//               .map(
+//                 (e) => e
+//                     .toMap()
+//                     .entries
+//                     .where((entry) => projectAttrs.contains(entry.key)),
+//               )
+//               .toList(),
+//       'projectIds': _projectIds,
+//       'friends': friends.isEmpty
+//           ? []
+//           : friends
+//               .sublist(0, friends.length < 10 ? friends.length : 10)
+//               .map(
+//                 (e) => e
+//                     .toMap()
+//                     .entries
+//                     .where((entry) => friendAttrs.contains(entry.key)),
+//               )
+//               .toList(),
+//     };
+//   }
+
+//   @override
+//   Future<void> save() async {
+//     relationTestIndex.save(this);
+//     await super.save();
+//   }
+
+//   // related to FK<Profile> profile;
+//   Future<Profile> getProfile() async {
+//     return profile = await profileIndex.get(_profileId) ?? profile;
+//   }
+
+//   // related to FKL<Project> projects;
+//   Future<List<Project>?> getProjects() async {
+//     if (_projectIds.isEmpty) return projects = [];
+
+//     final end = _projectIds.length < 10 ? _projectIds.length : 10;
+//     projects = await projectIndex.batchGet(
+//           _projectIds.sublist(0, end),
+//         ) ??
+//         [];
+
+//     await save();
+//     return projects;
+//   }
+
+//   // related to FKL<Project> projects;
+//   Future<List<Project>?> nextProjects() async {
+//     final remaining = _projectIds.length - projects.length;
+//     if (remaining > 0) {
+//       final start = projects.length;
+//       final end =
+//           (_projectIds.length < start + 10) ? _projectIds.length : start + 10;
+
+//       final newProjects = await projectIndex.batchGet(
+//         _projectIds.sublist(start, end),
+//       );
+
+//       if (newProjects == null) return null;
+//       projects.addAll(newProjects);
+//       return newProjects;
+//     }
+//     return null;
+//   }
+
+//   // related to FQL<Profile> friends;
+//   Future<List<Profile>?> getFriends() async {
+//     final friendsData = await profileIndex.query([
+//       QueryFilter('id', isNotEqualTo: profile.id),
+//     ]);
+//     if (friendsData == null) return null;
+//     friends = friendsData.data;
+//     _friendsLast = friendsData.lastDocument;
+//     await save();
+//     return friendsData.data;
+//   }
+
+//   // related to FQL<Profile> friends;
+//   Future<List<Profile>?> nextFriends() async {
+//     final newFriendsData = await profileIndex.query(
+//       [
+//         QueryFilter('id', isNotEqualTo: profile.id),
+//       ],
+//       startAfter: _friendsLast,
+//     );
+//     if (newFriendsData == null) return null;
+//     friends.addAll(newFriendsData.data);
+//     _friendsLast = newFriendsData.lastDocument;
+//     return newFriendsData.data;
+//   }
+// }

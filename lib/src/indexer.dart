@@ -3,10 +3,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:synrg/synrg.dart';
 
+/// Holds the data list and the snapshot of the last document for pagination.
+class PaginatedResult<T> {
+  PaginatedResult({required this.data, this.lastDocument});
+  final List<T> data;
+  final DocumentSnapshot? lastDocument;
+}
+
 ///
-class Query {
+class QueryFilter {
   ///
-  Query(
+  QueryFilter(
     this.field, {
     this.isEqualTo,
     this.isNotEqualTo,
@@ -148,78 +155,12 @@ class SynrgIndexer<T extends SynrgClass> {
     }
   }
 
-  /// Paginated query method
-  Future<List<T>?> query({
-    required String field,
-    dynamic isEqualTo,
-    dynamic isNotEqualTo,
-    dynamic isLessThan,
-    dynamic isLessThanOrEqualTo,
-    dynamic isGreaterThan,
-    dynamic isGreaterThanOrEqualTo,
-    dynamic arrayContains,
-    List<dynamic>? arrayContainsAny,
-    List<dynamic>? whereIn,
-    List<dynamic>? whereNotIn,
-    bool? isNull,
-    int limit = 10,
-    String? startAfter,
-  }) async {
-    final trace =
-        await _performance.startTrace('Indexer query ( $_collectionName )');
-    try {
-      var query = _collection
-          .where(
-            field,
-            isEqualTo: isEqualTo,
-            isNotEqualTo: isNotEqualTo,
-            isLessThan: isLessThan,
-            isLessThanOrEqualTo: isLessThanOrEqualTo,
-            isGreaterThan: isGreaterThan,
-            isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-            arrayContains: arrayContains,
-            arrayContainsAny: arrayContainsAny,
-            whereIn: whereIn,
-            whereNotIn: whereNotIn,
-            isNull: isNull,
-          )
-          .limit(limit);
-
-      if (startAfter != null) {
-        // TODO: fix startAfter
-        final doc = await _collection.doc(startAfter).get();
-        query = query.startAfterDocument(doc);
-      }
-
-      final querySnapshot = await query.get();
-
-      final filteredData = <T>[];
-      for (final doc in querySnapshot.docs) {
-        if (doc.data() != null) {
-          final data = doc.data()! as Map<String, dynamic>;
-          data['id'] = doc.id;
-          final e = _fromMap(data);
-          filteredData.add(e);
-        }
-      }
-      return filteredData;
-    } catch (e, stackTrace) {
-      SynrgCrashlytics.instance.logError(
-        e as Error,
-        stackTrace,
-        reason: 'Indexer Query ($_collectionName) Exception',
-      );
-      return null;
-    } finally {
-      await SynrgPerformance.instance.stopTrace(trace);
-    }
-  }
-
   /// Query method that has multiple filters
-  Future<List<T>?> multiQuery(
-    List<Query> queries, {
+  Future<PaginatedResult<T>?> query(
+    List<QueryFilter> queries, {
     int limit = 10,
-    String? startAfter,
+    String? orderBy,
+    DocumentSnapshot? startAfter,
   }) async {
     final trace = await _performance
         .startTrace('Indexer multiQuery ( $_collectionName )');
@@ -241,10 +182,11 @@ class SynrgIndexer<T extends SynrgClass> {
           isNull: q.isNull,
         );
       }
+      if (orderBy != null) {
+        queryObj.orderBy(orderBy);
+      }
       if (startAfter != null) {
-        // TODO: fix startAfter
-        final doc = await _collection.doc(startAfter).get();
-        queryObj = queryObj.startAfterDocument(doc);
+        queryObj = queryObj.startAfterDocument(startAfter);
       }
       final querySnapshot = await queryObj.get();
 
@@ -257,7 +199,11 @@ class SynrgIndexer<T extends SynrgClass> {
           filteredData.add(e);
         }
       }
-      return filteredData;
+      return PaginatedResult(
+        data: filteredData,
+        lastDocument:
+            querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null,
+      );
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
         e as Error,
@@ -271,13 +217,13 @@ class SynrgIndexer<T extends SynrgClass> {
   }
 
   /// Paginated search method
-  Future<List<T>?> search(
+  Future<PaginatedResult<T>?> search(
     String field, {
     required String filter,
     String? orderBy,
     bool descending = false,
     int limit = 10,
-    String? startAfter,
+    DocumentSnapshot? startAfter,
     String? createdBy,
   }) async {
     try {
@@ -299,8 +245,7 @@ class SynrgIndexer<T extends SynrgClass> {
       }
 
       if (startAfter != null) {
-        final doc = await _collection.doc(startAfter).get();
-        query = query.startAfterDocument(doc);
+        query = query.startAfterDocument(startAfter);
       }
 
       final querySnapshot = await query.get();
@@ -314,7 +259,11 @@ class SynrgIndexer<T extends SynrgClass> {
           filteredData.add(e);
         }
       }
-      return filteredData;
+      return PaginatedResult(
+        data: filteredData,
+        lastDocument:
+            querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null,
+      );
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
         e as Error,
@@ -327,13 +276,13 @@ class SynrgIndexer<T extends SynrgClass> {
 
   /// Paginated fuzzy search method for array fields
   /// the field must be stored as an array of strings
-  Future<List<T>?> fuzzySearch(
+  Future<PaginatedResult<T>?> fuzzySearch(
     String field, {
     required String filter,
     String? orderBy,
     bool descending = false,
     int limit = 10,
-    String? startAfter,
+    DocumentSnapshot? startAfter,
     String? createdBy,
   }) async {
     try {
@@ -348,8 +297,7 @@ class SynrgIndexer<T extends SynrgClass> {
       }
 
       if (startAfter != null) {
-        final doc = await _collection.doc(startAfter).get();
-        query = query.startAfterDocument(doc);
+        query = query.startAfterDocument(startAfter);
       }
 
       final querySnapshot = await query.get();
@@ -363,7 +311,11 @@ class SynrgIndexer<T extends SynrgClass> {
           filteredData.add(e);
         }
       }
-      return filteredData;
+      return PaginatedResult(
+        data: filteredData,
+        lastDocument:
+            querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null,
+      );
     } catch (e, stackTrace) {
       SynrgCrashlytics.instance.logError(
         e as Error,
@@ -375,8 +327,8 @@ class SynrgIndexer<T extends SynrgClass> {
   }
 
   /// Get a paginated list of all documents
-  Future<List<T>?> list({
-    String? startAfter,
+  Future<PaginatedResult<T>?> list({
+    DocumentSnapshot? startAfter,
     int limit = 10,
     String? createdBy,
     String? orderBy,
@@ -391,18 +343,22 @@ class SynrgIndexer<T extends SynrgClass> {
     if (orderBy != null) {
       query = query.orderBy(orderBy, descending: descending);
     }
+    if (startAfter != null) {
+      query = query.startAfterDocument(startAfter);
+    }
 
-    final querySnapshot = startAfter != null
-        ? await query
-            .startAfterDocument(await _collection.doc(startAfter).get())
-            .get()
-        : await query.get();
+    final querySnapshot = await query.get();
 
-    return querySnapshot.docs.map((doc) {
+    final data = querySnapshot.docs.map((doc) {
       final data = doc.data()! as Map<String, dynamic>;
       data['id'] = doc.id;
       return _fromMap(data);
     }).toList();
+    return PaginatedResult<T>(
+      data: data,
+      lastDocument:
+          querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null,
+    );
   }
 
   Map<String, dynamic>? _toMap(T obj) {

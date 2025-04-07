@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.6.0
+
+- removed multiQuery
+- changed query filter to QueryFilter list
+- added orderby to query
+- fixed startAfter implementation for DocumentSnapshot?,
+- added base theme
+
 ## 0.5.7
 
 - Deprecate SynrgProfile implementation

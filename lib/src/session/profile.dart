@@ -23,6 +23,17 @@ class Location {
     );
   }
 
+  /// Converts the Location object to a map.
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'address': address,
+      'city': city,
+      'state': state,
+      'country': country,
+      'postalCode': postalCode,
+    };
+  }
+
   ///
   String? address;
 

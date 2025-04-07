@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:synrg/src/example.dart';
 import 'package:synrg/synrg.dart';
 
@@ -57,7 +58,7 @@ final fkQuery = FKQ<Project>(
   indexer: projectIndex,
   attrs: ['id', 'name'],
   queries: [
-    Query('type', isEqualTo: 'software'),
+    QueryFilter('type', isEqualTo: 'software'),
   ],
 );
 
@@ -188,7 +189,7 @@ class FKQ<T extends SynrgClass> {
   final T Function(Map<String, dynamic>) fromMap;
   final List<String> attrs;
   final SynrgIndexer<T> indexer;
-  final List<Query> queries;
+  final List<QueryFilter> queries;
   final int page;
 
   /// Internal list of foreign key instances
@@ -196,14 +197,14 @@ class FKQ<T extends SynrgClass> {
 
   /// Fetches the query results using `multiQuery`
   Future<List<FK<T>>?> fetch() async {
-    final result = await indexer.multiQuery(queries, limit: page);
+    final result = await indexer.query(queries, limit: page);
 
     if (result == null) return null;
 
     _instances
-      ..clear() // Clear previous instances
+      ..clear()
       ..addAll(
-        result.map((data) {
+        result.data.map((data) {
           return FK<T>(
             fromMap: fromMap,
             indexer: indexer,
@@ -279,6 +280,7 @@ class RelationTest extends SynrgClass {
   List<Project> projects;
   // FQL<Profile> friends;
   List<Profile> friends;
+  DocumentSnapshot? friendsStartAfter;
   final List<String> _projectIds;
 
   static RelationTest fromMap(Map<String, Object> map) {
@@ -349,10 +351,12 @@ class RelationTest extends SynrgClass {
   // related to FKL<Project> projects;
   Future<List<Project>?> nextProjects() async {
     if (_projectIds.length > projects.length) {
-      final newProjects = await projectIndex.batchGet(_projectIds.sublist(
-        projects.length,
-        projects.length + 10,
-      ));
+      final newProjects = await projectIndex.batchGet(
+        _projectIds.sublist(
+          projects.length,
+          projects.length + 10,
+        ),
+      );
       if (newProjects == null) return null;
       projects.addAll(newProjects);
       return newProjects;
@@ -362,22 +366,28 @@ class RelationTest extends SynrgClass {
 
   // related to FQL<Profile> friends;
   Future<List<Profile>?> getFriends() async {
-    return friends = await profileIndex.multiQuery([
-          Query('id', isNotEqualTo: profile.id),
-        ]) ??
-        [];
+    final friendsData = await profileIndex.query([
+      QueryFilter('id', isNotEqualTo: profile.id),
+    ]);
+    if (friendsData == null) return null;
+    friends = friendsData.data;
+    friendsStartAfter = friendsData.lastDocument;
+    return friendsData.data;
   }
 
   // related to FQL<Profile> friends;
   Future<List<Profile>?> nextFriends() async {
-    final newFriends = await profileIndex.multiQuery(
+    final friendsData = await profileIndex.query(
       [
-        Query('id', isNotEqualTo: profile.id),
+        QueryFilter('id', isNotEqualTo: profile.id),
       ],
-      startAfter: friends.last.id,
+      startAfter: friendsStartAfter,
     );
-    if (newFriends == null) return null;
-    friends.addAll(newFriends);
-    return newFriends;
+
+    if (friendsData == null) return null;
+    friends = friendsData.data;
+    friendsStartAfter = friendsData.lastDocument;
+    friends.addAll(friendsData.data);
+    return friendsData.data;
   }
 }
