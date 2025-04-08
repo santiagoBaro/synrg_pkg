@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:synrg/src/query_filter.dart';
 import 'package:synrg/synrg.dart';
 
 /// Holds the data list and the snapshot of the last document for pagination.
@@ -8,38 +9,6 @@ class PaginatedResult<T> {
   PaginatedResult({required this.data, this.lastDocument});
   final List<T> data;
   final DocumentSnapshot? lastDocument;
-}
-
-///
-class QueryFilter {
-  ///
-  QueryFilter(
-    this.field, {
-    this.isEqualTo,
-    this.isNotEqualTo,
-    this.isLessThan,
-    this.isLessThanOrEqualTo,
-    this.isGreaterThan,
-    this.isGreaterThanOrEqualTo,
-    this.arrayContains,
-    this.arrayContainsAny,
-    this.whereIn,
-    this.whereNotIn,
-    this.isNull,
-  });
-
-  final String field;
-  final dynamic isEqualTo;
-  final dynamic isNotEqualTo;
-  final dynamic isLessThan;
-  final dynamic isLessThanOrEqualTo;
-  final dynamic isGreaterThan;
-  final dynamic isGreaterThanOrEqualTo;
-  final dynamic arrayContains;
-  final List<dynamic>? arrayContainsAny;
-  final List<dynamic>? whereIn;
-  final List<dynamic>? whereNotIn;
-  final bool? isNull;
 }
 
 /// Firestore Wrapper, get and set given a "collectionName"

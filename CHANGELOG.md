@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.2
+
+- changed QueryFilter and added toString a fromString methods
+
 ## 0.6.1
 
 - added copyWith to theme

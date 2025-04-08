@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:synrg/src/example.dart';
+import 'package:synrg/src/query_filter.dart';
 import 'package:synrg/synrg.dart';
 
 class Profile extends SynrgClass {

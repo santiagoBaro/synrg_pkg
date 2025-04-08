@@ -1,6 +1,6 @@
 name: synrg
 description: A Very Good Project created by Very Good CLI.
-version: 0.6.1
+version: 0.6.2
 homepage: https://www.synrg.software/
 repository: https://github.com/santiagoBaro/synrg_pkg
 
@@ -12,6 +12,7 @@ dependencies:
   bloc: ^8.1.4
   cloud_firestore: ^4.17.5
   cloud_functions: ^4.7.6
+  collection: ^1.19.1
   device_info_plus: ^10.1.2
   equatable: ^2.0.7
   firebase_analytics: ^10.10.7
