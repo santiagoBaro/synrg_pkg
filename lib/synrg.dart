@@ -9,6 +9,7 @@ export 'src/enums.dart';
 export 'src/functions.dart';
 export 'src/indexer.dart';
 export 'src/performance.dart';
+export 'src/query_filter.dart';
 export 'src/realtime_database.dart';
 export 'src/remote_config.dart';
 export 'src/session/session.dart';
