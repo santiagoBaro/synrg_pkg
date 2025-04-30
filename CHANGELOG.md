@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.3
+
+- Fix README
+
 ## 0.6.2
 
 - changed QueryFilter and added toString a fromString methods
