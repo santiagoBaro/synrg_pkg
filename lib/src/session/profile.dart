@@ -1,7 +1,8 @@
 import 'package:synrg/src/class.dart';
 import 'package:synrg/synrg.dart';
 
-///
+/// A class representing a location with address,
+/// city, state, country, and postal code.
 class Location {
   /// Constructor for the Location class.
   Location({
@@ -34,19 +35,19 @@ class Location {
     };
   }
 
-  ///
+  /// The address of the location.
   String? address;
 
-  ///
+  /// The city of the location.
   String? city;
 
-  ///
+  /// The state of the location.
   String? state;
 
-  ///
+  /// The country of the location.
   String? country;
 
-  ///
+  /// The postal code of the location.
   String? postalCode;
 
   @override

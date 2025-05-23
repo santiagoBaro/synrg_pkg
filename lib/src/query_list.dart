@@ -68,9 +68,11 @@ class _QueryListState extends State<QueryList> {
 
     if (newItems != null) {
       setState(() {
+        // ignore: avoid_dynamic_calls
         final existingItemIds = items.map((item) => item.id).toSet();
 
         final filteredNewItems = newItems
+            // ignore: avoid_dynamic_calls
             .where((item) => !existingItemIds.contains(item.id))
             .toList();
 

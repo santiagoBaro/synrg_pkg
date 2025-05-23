@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, lines_longer_than_80_chars
 
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 
 /// Represents a filter for querying data in a database.
+@immutable
 class QueryFilter {
   QueryFilter(
     this.field, {
@@ -47,7 +49,7 @@ class QueryFilter {
       arrayContainsAny,
       whereIn,
       whereNotIn,
-      isNull
+      isNull,
     ];
     final setConditions = conditions.where((c) => c != null).length;
     assert(field.isNotEmpty, 'QueryFilter field cannot be empty.');
@@ -72,7 +74,7 @@ class QueryFilter {
   };
 
   static bool _isTextOperator(String operatorSymbol) {
-    return operatorSymbol.contains(RegExp(r'[a-zA-Z]'));
+    return operatorSymbol.contains(RegExp('[a-zA-Z]'));
   }
 
   @override
@@ -81,46 +83,47 @@ class QueryFilter {
     dynamic value;
 
     if (isEqualTo != null) {
-      operatorSymbol = _parameterToOperator['isEqualTo']!;
+      operatorSymbol = _parameterToOperator['isEqualTo'];
       value = isEqualTo;
     } else if (isNotEqualTo != null) {
-      operatorSymbol = _parameterToOperator['isNotEqualTo']!;
+      operatorSymbol = _parameterToOperator['isNotEqualTo'];
       value = isNotEqualTo;
     } else if (isLessThan != null) {
-      operatorSymbol = _parameterToOperator['isLessThan']!;
+      operatorSymbol = _parameterToOperator['isLessThan'];
       value = isLessThan;
     } else if (isLessThanOrEqualTo != null) {
-      operatorSymbol = _parameterToOperator['isLessThanOrEqualTo']!;
+      operatorSymbol = _parameterToOperator['isLessThanOrEqualTo'];
       value = isLessThanOrEqualTo;
     } else if (isGreaterThan != null) {
-      operatorSymbol = _parameterToOperator['isGreaterThan']!;
+      operatorSymbol = _parameterToOperator['isGreaterThan'];
       value = isGreaterThan;
     } else if (isGreaterThanOrEqualTo != null) {
-      operatorSymbol = _parameterToOperator['isGreaterThanOrEqualTo']!;
+      operatorSymbol = _parameterToOperator['isGreaterThanOrEqualTo'];
       value = isGreaterThanOrEqualTo;
     } else if (arrayContains != null) {
-      operatorSymbol = _parameterToOperator['arrayContains']!;
+      operatorSymbol = _parameterToOperator['arrayContains'];
       value = arrayContains;
     } else if (arrayContainsAny != null) {
-      operatorSymbol = _parameterToOperator['arrayContainsAny']!;
+      operatorSymbol = _parameterToOperator['arrayContainsAny'];
       value = arrayContainsAny;
     } else if (whereIn != null) {
-      operatorSymbol = _parameterToOperator['whereIn']!;
+      operatorSymbol = _parameterToOperator['whereIn'];
       value = whereIn;
     } else if (whereNotIn != null) {
-      operatorSymbol = _parameterToOperator['whereNotIn']!;
+      operatorSymbol = _parameterToOperator['whereNotIn'];
       value = whereNotIn;
     } else if (isNull != null) {
-      operatorSymbol = _parameterToOperator['isNull']!;
+      operatorSymbol = _parameterToOperator['isNull'];
       value = isNull;
     } else {
       throw StateError(
-          'Invalid QueryFilter state: No condition set for field "$field".');
+        'Invalid QueryFilter state: No condition set for field "$field".',
+      );
     }
 
     final formattedValue = _formatValueForString(value);
     final operatorString =
-        _isTextOperator(operatorSymbol) ? ' $operatorSymbol ' : operatorSymbol;
+        _isTextOperator(operatorSymbol!) ? ' $operatorSymbol ' : operatorSymbol;
 
     return '$field$operatorString$formattedValue';
   }
@@ -129,7 +132,7 @@ class QueryFilter {
     if (value is String) {
       if (value
           .contains(RegExp(r'[\s\[\],=<>!]|arrayContains|in|not-in|isNull'))) {
-        final escaped = value.replaceAll('"', '\\"');
+        final escaped = value.replaceAll('"', r'\"');
         return '"$escaped"';
       }
       return value;
@@ -140,13 +143,15 @@ class QueryFilter {
     }
   }
 
-  static QueryFilter fromString(String querySegment) {
-    querySegment = querySegment.trim();
+  static QueryFilter fromString(String segment) {
+    final querySegment = segment.trim();
     if (querySegment.isEmpty) {
-      throw FormatException('Cannot create QueryFilter from empty string.');
+      throw const FormatException(
+        'Cannot create QueryFilter from empty string.',
+      );
     }
 
-    const List<String> operatorSymbols = [
+    const operatorSymbols = <String>[
       '!=',
       '>=',
       '<=',
@@ -194,7 +199,8 @@ class QueryFilter {
           );
         }
 
-        dynamic parsedValue = _parseValueFromString(valueString, opLogicKey);
+        final dynamic parsedValue =
+            _parseValueFromString(valueString, opLogicKey);
 
         switch (opLogicKey) {
           case '=':
@@ -212,49 +218,60 @@ class QueryFilter {
           case 'arrayContains':
             return QueryFilter(field, arrayContains: parsedValue);
           case 'in':
-            if (parsedValue is List)
+            if (parsedValue is List) {
               return QueryFilter(field, whereIn: parsedValue);
+            }
             throw FormatException(
-                'Parsed value for "in" is not a List: "$valueString"');
+              'Parsed value for "in" is not a List: "$valueString"',
+            );
           case 'not-in':
-            if (parsedValue is List)
+            if (parsedValue is List) {
               return QueryFilter(field, whereNotIn: parsedValue);
+            }
             throw FormatException(
-                'Parsed value for "not-in" is not a List: "$valueString"');
+              'Parsed value for "not-in" is not a List: "$valueString"',
+            );
           case 'arrayContainsAny':
-            if (parsedValue is List)
+            if (parsedValue is List) {
               return QueryFilter(field, arrayContainsAny: parsedValue);
+            }
             throw FormatException(
-                'Parsed value for "arrayContainsAny" is not a List: "$valueString"');
+              'Parsed value for "arrayContainsAny" is not a List: "$valueString"',
+            );
           default:
             throw FormatException(
-                'Internal error: Unhandled operator symbol "$opLogicKey" found during parsing.');
+              'Internal error: Unhandled operator symbol "$opLogicKey" found during parsing.',
+            );
         }
       }
     }
     throw FormatException(
-        'No valid operator found in query segment: "$querySegment"');
+      'No valid operator found in query segment: "$querySegment"',
+    );
   }
 
   static dynamic _parseValueFromString(
-      String valueString, String operatorSymbol) {
+    String valueString,
+    String operatorSymbol,
+  ) {
     if (valueString.startsWith('"') && valueString.endsWith('"')) {
       return valueString
           .substring(1, valueString.length - 1)
-          .replaceAll('\\"', '"');
+          .replaceAll(r'\"', '"');
     }
 
     if (['in', 'not-in', 'arrayContainsAny'].contains(operatorSymbol)) {
       if (valueString.startsWith('[') && valueString.endsWith(']')) {
         final listContent = valueString.substring(1, valueString.length - 1);
-        if (listContent.isEmpty) return [];
+        if (listContent.isEmpty) return <dynamic>[];
         return listContent
             .split(',')
             .map((s) => _parseValueFromString(s.trim(), ''))
             .toList();
       } else {
         throw FormatException(
-            'Invalid list format for operator "$operatorSymbol": "$valueString"');
+          'Invalid list format for operator "$operatorSymbol": "$valueString"',
+        );
       }
     }
 

@@ -38,7 +38,7 @@ class SynrgAnalytics {
 
     await _analytics.logEvent(
       name: eventName,
-      parameters: parameters,
+      parameters: _castToObjectMap(parameters),
     );
   }
 
@@ -67,7 +67,29 @@ class SynrgAnalytics {
     await _analytics.logScreenView(
       screenName: screenName,
       screenClass: screenClass,
-      parameters: parameters,
+      parameters: _castToObjectMap(parameters),
     );
   }
+}
+
+Map<String, Object>? _castToObjectMap(Map<String, dynamic>? input) {
+  if (input == null) return null;
+
+  final result = <String, Object>{};
+
+  input.forEach((key, value) {
+    if (value == null) return;
+
+    if (value is String || value is num || value is bool) {
+      result[key] = value as Object;
+    } else if (value is DateTime) {
+      result[key] = value.toIso8601String();
+    } else if (value is List) {
+      result[key] = value.join(',');
+    } else {
+      result[key] = value.toString();
+    }
+  });
+
+  return result;
 }
