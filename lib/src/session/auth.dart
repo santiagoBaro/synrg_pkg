@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:synrg/src/_internal.dart';
 import 'package:synrg/synrg.dart';
 
@@ -132,6 +134,78 @@ class SynrgAuth {
         error as Error,
         stackTrace,
         reason: 'Auth Refresh Profile Exception',
+      );
+    } finally {
+      await _performance.stopTrace(trace);
+    }
+  }
+
+  /// Sign in with Google
+  Future<void> signInWithGoogle() async {
+    final trace = await _performance.startTrace('Sign In With Google');
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return;
+
+      final googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      user = userCredential.user;
+      userId = user?.uid;
+      final tokenResult = await user?.getIdTokenResult();
+      accessToken = tokenResult?.token;
+
+      await setUserId(user?.uid);
+      await refreshProfile();
+    } catch (error, stackTrace) {
+      SynrgCrashlytics.instance.logError(
+        error as Error,
+        stackTrace,
+        reason: 'Auth Google Sign In Exception',
+      );
+    } finally {
+      await _performance.stopTrace(trace);
+    }
+  }
+
+  /// Sign in with Apple (only available on iOS)
+  Future<void> signInWithApple() async {
+    final trace = await _performance.startTrace('Sign In With Apple');
+    try {
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName
+        ],
+      );
+
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode,
+      );
+
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+
+      user = userCredential.user;
+      userId = user?.uid;
+      final tokenResult = await user?.getIdTokenResult();
+      accessToken = tokenResult?.token;
+
+      await setUserId(user?.uid);
+      await refreshProfile();
+    } catch (error, stackTrace) {
+      SynrgCrashlytics.instance.logError(
+        error as Error,
+        stackTrace,
+        reason: 'Auth Apple Sign In Exception',
       );
     } finally {
       await _performance.stopTrace(trace);

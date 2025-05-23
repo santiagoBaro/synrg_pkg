@@ -57,9 +57,11 @@ void main() async {
   await Firebase.initializeApp();
 
   SynrgCrashlytics.instance.initialize();
-  SynrgAuth.initialize(profileIndex);
+  SynrgAuth.initialize(Indexer.profiles);
 }
 ```
+
+Indexer.profiles is an optional parameter, if the app manages users it will use the passed index to query for the users in formation in sign in, register or update flows.
 
 ---
 
@@ -68,6 +70,8 @@ void main() async {
 ### 1. `SynrgBlocProvider`
 
 A wrapper over `BlocProvider` + `BlocConsumer` that listens for modals and analytics automatically.
+The listener is there to show messages to the user, using this you can trigger a modal in the ui from the bloc's event code.
+It also logs the state changes and adds performance metrics
 
 ```dart
 SynrgBlocProvider<MyBloc>(
@@ -95,6 +99,7 @@ class MyState extends SynrgState {
 
 ### 2. `SynrgModal`
 
+In BLoC, the logic is located in the events. What this enables is to show the user information from the event logic.
 Show toasts, dialogs, drawers, etc., based on state.
 
 ```dart
@@ -116,13 +121,16 @@ final user = SynrgAuth.instance.profile;
 
 ### 4. `SynrgIndexer<T>`
 
-Typed Firestore access
+The indexer is a Firestore helper. Given a model you specify the mapping method and the table name and all the basic interactions are already taken care of.
 
 ```dart
-final index = SynrgIndexer<Project>('projects', Project.fromMap);
+class Indexer {
+  static final profiles = SynrgIndexer<Profile>('profile', Profile.fromMap);
+  static final projects = SynrgIndexer<Project>('project', Project.fromMap);
+}
 
-final project = await index.get('id123');
-await index.save(Project(name: 'New Project'));
+final project = await Indexer.projects.get('id123');
+await Indexer.projects.save(Project(name: 'New Project'));
 ```
 
 Supports pagination, filtering, and batch ops.
@@ -130,13 +138,32 @@ Supports pagination, filtering, and batch ops.
 ### 5. `SynrgFunction<T>`
 
 Cloud Functions with result status:
+This is similar to the Indexer as it maps the result to the specified output type
 
 ```dart
-final fn = SynrgFunction<Project>('getProject', Project.fromMap);
-final result = await fn.call({'id': 'abc'});
+class Payments {
+  static Future<Profile?> payments({
+    required String clientId,
+    required int amount,
+  }) async {
+    final result =
+        await SynrgFunction<Profile>('payments', Profile.fromMap).call({
+      'clientId': clientId,
+      'amount': amount,
+    });
+    if (result.status == SynrgFunctionStatus.success) {
+      return result.result;
+    } else {
+      throw Exception('Failed to process payment: ${result.status}');
+    }
+  }
+}
 
-if (result.status == SynrgFunctionStatus.success) {
-  print(result.result?.name);
+
+final result = await Payments.payments(clientId: 'id', amount: 'abc');
+
+if (result =! null) {
+  print(result.name);
 }
 ```
 

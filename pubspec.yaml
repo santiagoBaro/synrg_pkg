@@ -1,6 +1,6 @@
 name: synrg
-description: A Very Good Project created by Very Good CLI.
-version: 0.6.3
+description: Helper to connect to firebase tools.
+version: 1.0.0
 homepage: https://www.synrg.software/
 repository: https://github.com/santiagoBaro/synrg_pkg
 
@@ -28,10 +28,12 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_gen: ^5.8.0
   go_router: ^14.7.2
+  google_sign_in: ^6.3.0
   intl: ^0.20.2
   meta: ^1.15.0
   quickalert: ^1.1.0
   shared_preferences: ^2.5.1
+  sign_in_with_apple: ^7.0.1
   toastification: ^2.3.0
   uuid: ^4.5.1
 

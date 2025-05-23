@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.0.0
+
+- Publish
+
+## 0.6.4
+
+- Adds sign in with google and apple
+
 ## 0.6.3
 
 - Fix README
