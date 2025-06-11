@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.1.0
+
+- Added SynrgFile
+
+## 1.0.2
+
+- added date parsing function
+
 ## 1.0.0
 
 - Publish
