@@ -6,6 +6,7 @@ export 'enums.dart';
 export 'example.dart';
 export 'functions.dart';
 export 'indexer.dart';
+export 'navigation.dart';
 export 'performance.dart';
 export 'query_filter.dart';
 export 'query_list.dart';

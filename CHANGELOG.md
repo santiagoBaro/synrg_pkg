@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1
+
+- Added SynrgNavigation
+
 ## 1.1.0
 
 - Added SynrgFile
